@@ -4,12 +4,6 @@ import invoke
 
 
 @invoke.task
-def clean(ctx):
-    """Remove temporary and cache files."""
-    ctx.run("find . -depth -type d -name __pycache__ -exec rm -rf {} \;")
-
-
-@invoke.task
 def api_test(ctx):
     """Run api tests."""
     args = {"pty": True} if platform != "win32" else {}
@@ -48,19 +42,3 @@ def format(ctx, check=False):
 @invoke.task
 def lint(ctx):
     ctx.run("pylint --rcfile=.pylintrc src")
-
-
-@invoke.task
-def all(ctx):
-    """Run format, lint and tests."""
-    ctx.run(f"invoke format")
-    ctx.run(f"invoke lint")
-    ctx.run(f"invoke test")
-
-
-@invoke.task
-def cli(ctx, command):
-    """Run code formatting."""
-    ctx.run(
-        f"docker-compose -f ../../docker-compose.tasks.yml run tasks_worker bash -c 'python -m src.delivery.tasks.cli {command}'"
-    )

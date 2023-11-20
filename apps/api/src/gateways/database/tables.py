@@ -1,18 +1,19 @@
-from datetime import datetime
-from typing import List, Optional
-from uuid import UUID, uuid4
+import uuid
 
-from sqlalchemy import DateTime, ForeignKey, func
-from sqlalchemy.ext.asyncio import AsyncAttrs
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import (
+    Column,
+    String,
+)
+from sqlalchemy.dialects import postgresql
 
-
-class Base(AsyncAttrs, DeclarativeBase):
-    pass
+from .base import Base
 
 
 class User(Base):
     __tablename__ = "users"
-    id: Mapped[UUID] = mapped_column(primary_key=True, index=True, default=uuid4)
-    email: str = mapped_column()
-    password: str = mapped_column()
+
+    uid = Column(postgresql.UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
+    email = Column(String, nullable=False, unique=True)
+    password = Column(String, nullable=False)
+    name = Column(String)
+    surname = Column(String)
