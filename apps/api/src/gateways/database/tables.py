@@ -5,9 +5,12 @@ from sqlalchemy import (
     String,
 )
 from sqlalchemy.dialects import postgresql
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.ext.asyncio import AsyncAttrs
 
-from .base import Base
 
+class Base(AsyncAttrs, DeclarativeBase):
+    pass
 
 class User(Base):
     __tablename__ = "users"
