@@ -1,3 +1,5 @@
+import hashlib
+
 from src.domains.users import gateways, interfaces
 from src.monitoring import logging
 
@@ -9,6 +11,11 @@ class CreateUser(interfaces.ICreateUser):
         self._storage = storage
 
     async def invoke(self, args):
+        hash = hashlib.new("SHA256")
+        hash.update(args.new_user.password.encode())
+
+        args.new_user.password = hash.hexdigest()
+
         user_info = await self._storage.create(args.new_user)
 
         LOGGER.info("Succesfully created user {%s}", args.new_user.email)
