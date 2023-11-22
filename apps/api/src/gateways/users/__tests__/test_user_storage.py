@@ -1,10 +1,5 @@
-import pytest
-
-from src.domains.users.entities import (
-    CreateUserRequest,
-    UserInfo,
-)
-from src.domains.users.gateways import IUsersStorage, UserAlreadyExists
+from src.domains.users.entities import CreateUserRequest
+from src.domains.users.gateways import IUsersStorage
 from src.tests.utils.ut_matcher import UuidMatcher
 
 

@@ -1,9 +1,8 @@
 from pydio.api import Injector, Provider
 
-from src.delivery.config import config as web_config
-from src.domains.users import commands, gateways, interfaces
-from src.gateways.users.storage import DatabaseUsersStorage
 from src.domains.core.storage import StorageSession
+from src.domains.users import gateways
+from src.gateways.users.storage import DatabaseUsersStorage
 
 provider = Provider()
 
