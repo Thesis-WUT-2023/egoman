@@ -1,16 +1,14 @@
 import uuid
 
-from sqlalchemy import (
-    Column,
-    String,
-)
+from sqlalchemy import Column, String
 from sqlalchemy.dialects import postgresql
-from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.ext.asyncio import AsyncAttrs
+from sqlalchemy.orm import DeclarativeBase
 
 
 class Base(AsyncAttrs, DeclarativeBase):
     pass
+
 
 class User(Base):
     __tablename__ = "users"

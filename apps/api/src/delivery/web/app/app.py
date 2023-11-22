@@ -15,9 +15,7 @@ class App(FastAPI):
         return self._injector
 
     def _register_routes(self):
-        self.include_router(
-            hello_world.router, prefix="/hey", tags=["Hello"]
-        )
+        self.include_router(hello_world.router, prefix="/hey", tags=["Hello"])
 
 
 def create_app():

@@ -13,10 +13,10 @@ class CreateUser(interfaces.ICreateUser):
         self._config = config
 
     async def invoke(self, args):
-        hash = hashlib.new(str(self._config.HASH_FUNC))
-        hash.update(args.new_user.password.encode())
+        hash_func = hashlib.new(str(self._config.HASH_FUNC))
+        hash_func.update(args.new_user.password.encode())
 
-        args.new_user.password = hash.hexdigest()
+        args.new_user.password = hash_func.hexdigest()
 
         user_info = await self._storage.create(args.new_user)
 

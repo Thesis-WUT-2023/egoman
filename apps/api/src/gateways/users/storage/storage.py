@@ -23,7 +23,7 @@ class DatabaseUsersStorage(gateways.IUsersStorage):
                     email=new_user.email,
                     password=new_user.password,
                     name=new_user.name,
-                    surname=new_user.surname
+                    surname=new_user.surname,
                 )
                 db_session.add(obj)
                 db_session.commit()
@@ -33,7 +33,7 @@ class DatabaseUsersStorage(gateways.IUsersStorage):
             except IntegrityError:
                 LOGGER.error("User with email %s already exists", new_user.email)
                 raise UserAlreadyExists()
-            
+
     def _map_orm_to_entity(self, user: tables.User) -> entities.UserInfo:
         return entities.UserInfo(
             uid=user.uid,

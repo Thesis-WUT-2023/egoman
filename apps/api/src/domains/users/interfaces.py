@@ -25,4 +25,3 @@ class ICreateUser(abc.ABC):
     @abc.abstractmethod
     async def invoke(self, args: Args) -> Result:
         pass
-
