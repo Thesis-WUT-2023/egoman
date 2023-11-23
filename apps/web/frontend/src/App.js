@@ -1,55 +1,28 @@
 
-import React, {useState, useEffect} from 'react';
-import { Component } from 'react';
-import logo from './logo.png';
-import NavBar from './components/NavBar';
-import AuthNavBar from './components/AuthNavBar'
+import React, {useState, useEffect, Component} from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Model from './pages/Model'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Account from './pages/Account'
-//import api from './api'
-import "./Styles.css"
+import NoPage from './pages/NoPage';
+
 
 
 
 
 export default function App() {
-// const [transactions,setTransactions] = useState([]);
-// const [formData, setFormData] = useState({
-
-// })
-// const fetchTransactions = async() => {
-// const response = await api.get('/transactions/');
-// setTransactions (response.data)
-// };
-// useEffect (()  => {
-//   fetchTransactions();
-// }, []);
-
-  let Component;
-  switch(window.location.pathname){
-    case "/":
-      Component = Model;
-      break;
-    case "/Model":
-      Component = Model;
-      break;
-    case "/SignIn":
-      Component = SignIn;
-      break;
-    case "/SignUp":
-      Component = SignUp;
-      break;
-    case "/User":
-    Component = Account;
-    break;
-      break
-  }
-
   return (
-    <>
-      <Component />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Model />} />
+        <Route path="/Model" element={<Model />} />
+        <Route path="SignUp" element={<SignUp />} />
+        <Route path="SignIn" element={<SignIn />} />
+        <Route path='Account' element={<Account />} />
+        <Route path='/*' element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
