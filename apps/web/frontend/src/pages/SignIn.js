@@ -23,7 +23,7 @@ export default function SignIn(){
         <AuthNavBar />
         <h1 className="h1">Sign In</h1>
         <hr className="hr"/>
-        <br/>
+        
         <div className="form">
             <form>
                 <div className="input-container">

@@ -11,8 +11,6 @@ export default function SignUp(){
           // Change the href attribute of the <a> element
           myLinkElement.href = '/SignIn';
           myLinkElement.textContent = "Sign In"
-        } else {
-          console.error("Element with id 'myLink' not found.");
         }
       }, []);
       return (
@@ -20,14 +18,14 @@ export default function SignUp(){
         <AuthNavBar />
         <h1 className="h1">Sign Up</h1>
         <hr className="hr"></hr>
-        <br></br>
+        
         <div className="form">
             <form>
                 <div className="input-container">
                     <br/>
-                    <input type="text" name="uname" placeholder="Name" required className="input"></input>   
-                    <input type="text" name="uname" placeholder="Surname" required className="input"></input>   
-                    <input type="text" name="uname" placeholder="Email" required className="input"></input>           
+                    <input type="text" name="name" placeholder="Name" required className="input"></input>   
+                    <input type="text" name="surname" placeholder="Surname" required className="input"></input>   
+                    <input type="text" name="email" placeholder="Email" required className="input"></input>           
                     <input type="password" placeholder="Password" name="pass" required className="input"/>
                     <input type="password" placeholder="Repeat Password" name="pass" required className="input"/>
                 </div>
