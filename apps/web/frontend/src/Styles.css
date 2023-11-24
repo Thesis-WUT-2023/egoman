@@ -60,7 +60,7 @@ code {
     color: #41AAA4;
     font-family: 'Newsreader';
     text-decoration: dotted;
-    font-size:4em;
+    font-size: 50px;
     margin: 0;
     margin-top: 10px;
 
@@ -74,40 +74,65 @@ code {
 }
 
 .form {
-    margin: auto;
+    margin: 10em;
     width: 30%;
-    background-color: #41AAA1;
+    /* background-color: #41AAA1; */
     min-height: 20em;
     max-height: fit-content;
     height: auto;
-    border-radius: 10%;
+    border-radius: 2%;
     max-width: 400px;
     margin: 50px auto;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    box-shadow: 3px 3px 3px 3px rgb(0 0 0 / 0.2);
     text-align: center;
+}
+
+#logo-form {
+    height: 4em;
 }
 .input-container {
     margin: auto;
     height: fit-content;
     width: auto;
-    max-width: 300px;
+    max-width: inherit;
     padding: 1em ;
     display: flex;
     flex-direction: column;
+    /* background-color: blue; */
 }
 
+.input-error {
+    /* margin: 0;
+    width: auto;
+    max-width: inherit;
+    padding: 1em ; */
+    display: flex;
+    flex-direction: column;
+    
+    /* background-color: green; */
+}
+
+.errors {
+    color: red;
+    /* background-color: green; */
+    display: flex;
+  align-items: flex-start;
+  font-size: small;
+}
+
+
 .input {
-    text-align: center;
+    /* text-align: center; */
     text-decoration-color: #41AAA1;
-    margin-bottom: 20px;
+    margin-top: 20px;
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 2px solid grey;
     border-radius: 10px;
     color: #41AAA1;
     font-size: 20px;
     font-family: 'Newsreader';
-    
 }
 .input::placeholder {
     font-family: 'Newsreader';
@@ -116,39 +141,41 @@ code {
 
 
 .button-container {
-    margin: none;
+    margin: auto;
     width: auto;
-    padding: 0 5em;
+    max-width: inherit;
+    padding: 1em ;
+    display: flex;
+    flex-direction: column;
 }
 
 
 .button-5 {
-    color: #41AAA1;
-  align-items: center;
-  background-clip: padding-box;
-  background-color: white;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  min-height: 3rem;
-  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
+    color: white ;
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #41AAA1;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: 8px;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
 }
 
 .button-5:hover,
@@ -160,6 +187,17 @@ code {
 .button-5:hover {
   transform: translateY(-1px);
 }
+
+#link {
+    z-index: 3;
+    text-decoration: none;
+    color: #41AAA1;
+}
+
+#link:hover {
+    text-decoration: underline;
+}
+
 
 .model-submit-button {
     color: white;
