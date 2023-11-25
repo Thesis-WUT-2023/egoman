@@ -33,7 +33,7 @@ export default function SignUp(){
       const [submitting, setSubmitting] = useState(false);
 
       const validateValues = (inputValues) => {
-        var validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let errors = {};
         
         if(!inputFields.name)
@@ -43,7 +43,7 @@ export default function SignUp(){
 
         if(!inputFields.email)
           errors.email = "Email is required";
-        else if (validRegex.test(inputFields.email)) {
+        if (!validRegex.test(inputFields.email)) {
           errors.email = "Invalid Email";
         }
 
@@ -94,27 +94,27 @@ export default function SignUp(){
               <img src={logo} id="logo-form"></img>
                 <div className="input-container">
                     <br/>
-                    <div className="input-error">
+                    <div className="input-error-container">
                       <input type="text" name="name" placeholder="Name" 
                       className="input" value={inputFields.name} onChange={handleChange}/>  
                       <label className="errors">{errors.name}</label>
                     </div>
-                    <div className="input-error">
+                    <div className="input-error-container">
                       <input type="text" name="surname" placeholder="Surname" 
                       className="input" value={inputFields.surname} onChange={handleChange}/> 
                       <label className="errors">{errors.surname}</label>  
                     </div>
-                    <div className="input-error">
+                    <div className="input-error-container">
                       <input type="text" name="email" placeholder="Email" 
                       className="input" value={inputFields.email} onChange={handleChange}/>   
                       <label className="errors">{errors.email}</label>    
                     </div>
-                    <div className="input-error">
+                    <div className="input-error-container">
                       <input type="password" placeholder="Password" name="password" 
                       className="input" value={inputFields.password} onChange={handleChange}/>
                       <label className="errors">{errors.password}</label>
                     </div>
-                    <div className="input-error">
+                    <div className="input-error-container">
                       <input type="password" placeholder="Repeat Password" name="repassword" 
                       className="input" value={inputFields.repassword} onChange={handleChange}/>
                       <label className="errors">{errors.repassword}</label>

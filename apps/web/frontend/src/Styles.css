@@ -1,31 +1,26 @@
-
-
-
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+        monospace;
 }
 
 .nav {
-    /* border-bottom: 50px black; */
     background-color: rgb(242, 242, 242);
-    color:rgb(130,130,130);
+    color: rgb(130, 130, 130);
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
     padding: 0 4rem;
     height: 5rem;
-    
-    
 }
 
 .nav ul {
@@ -36,8 +31,9 @@ code {
     gap: 2rem;
     font-size: large;
 }
+
 .nav a {
-    color:inherit;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -47,7 +43,7 @@ code {
 
 .nav li:hover {
     text-decoration: underline;
-    
+
 }
 
 .logo {
@@ -63,28 +59,24 @@ code {
     font-size: 50px;
     margin: 0;
     margin-top: 10px;
-
 }
+
 .hr {
     margin-left: 10em;
     margin-right: 10em;
     margin-top: 0em;
-    
-    
 }
 
 .form {
     margin: 10em;
     width: 30%;
-    /* background-color: #41AAA1; */
+    max-width: 400px;
     min-height: 20em;
     max-height: fit-content;
     height: auto;
     border-radius: 2%;
-    max-width: 400px;
     margin: 50px auto;
     padding: 30px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     box-shadow: 3px 3px 3px 3px rgb(0 0 0 / 0.2);
     text-align: center;
 }
@@ -92,39 +84,31 @@ code {
 #logo-form {
     height: 4em;
 }
+
 .input-container {
     margin: auto;
     height: fit-content;
     width: auto;
     max-width: inherit;
-    padding: 1em ;
+    padding: 1em;
     display: flex;
     flex-direction: column;
-    /* background-color: blue; */
 }
 
-.input-error {
-    /* margin: 0;
-    width: auto;
-    max-width: inherit;
-    padding: 1em ; */
+.input-error-container {
     display: flex;
     flex-direction: column;
-    
-    /* background-color: green; */
 }
 
 .errors {
     color: red;
-    /* background-color: green; */
     display: flex;
-  align-items: flex-start;
-  font-size: small;
+    align-items: flex-start;
+    font-size: small;
 }
 
 
 .input {
-    /* text-align: center; */
     text-decoration-color: #41AAA1;
     margin-top: 20px;
     padding: 8px;
@@ -134,6 +118,7 @@ code {
     font-size: 20px;
     font-family: 'Newsreader';
 }
+
 .input::placeholder {
     font-family: 'Newsreader';
     font-size: 20px;
@@ -144,14 +129,14 @@ code {
     margin: auto;
     width: auto;
     max-width: inherit;
-    padding: 1em ;
+    padding: 1em;
     display: flex;
     flex-direction: column;
 }
 
 
 .button-5 {
-    color: white ;
+    color: white;
     align-items: center;
     background-clip: padding-box;
     background-color: #41AAA1;
@@ -161,7 +146,7 @@ code {
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
-    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
     justify-content: center;
@@ -180,12 +165,12 @@ code {
 
 .button-5:hover,
 .button-5:focus {
-  background-color: #ddd;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    background-color: #ddd;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
 .button-5:hover {
-  transform: translateY(-1px);
+    transform: translateY(-1px);
 }
 
 #link {
@@ -210,7 +195,7 @@ code {
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
-    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
     justify-content: center;
@@ -233,7 +218,7 @@ code {
     height: fit-content;
     width: auto;
     max-width: 300px;
-    padding: 0em ;
+    padding: 0em;
     display: flex;
     flex-direction: row;
 }

@@ -33,19 +33,16 @@ export default function SignIn() {
     const [submitting, setSubmitting] = useState(false);
 
     const validateValues = (inputValues) => {
-        var validRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let errors = {};
 
         if (!inputFields.email)
             errors.email = "Email is required";
-        else if (validRegex.test(inputFields.email)) {
+        else if (!validRegex.test(inputFields.email.toLowerCase())) {
             errors.email = "Invalid Email";
         }
         if (!inputFields.password)
             errors.password = "Password is required";
-        else if (inputValues.password.length < 8) {
-            errors.password = "Password is short";
-        }
 
         return errors;
     };
@@ -80,12 +77,12 @@ export default function SignIn() {
                     <img src={logo} id="logo-form" />
                     <div className="input-container">
                         <br /><br />
-                        <div className="input-error">
+                        <div className="input-error-container">
                             <input type="text" name="email" placeholder="Email" className="input"
                                 value={inputFields.email} onChange={handleChange}></input>
                             <label className="errors">{errors.email}</label>
                         </div>
-                        <div className="input-error">
+                        <div className="input-error-container">
                             <input type="password" placeholder="Password" name="password" className="input"
                                 value={inputFields.password} onChange={handleChange} />
                             <label className="errors">{errors.password}</label>
