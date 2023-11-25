@@ -41,6 +41,8 @@ jobs:
     
     - name: Build
       run: npm run build --if-present
+      env:
+         CI: ""
 
     - name: Codecov
       uses: codecov/codecov-action@v3.1.4
