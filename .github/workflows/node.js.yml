@@ -27,7 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        # cache-dependency-path: /home/runner/work/egoman/egoman/apps/web/frontend/package-lock.json
+        cache-dependency-path: /home/runner/work/egoman/egoman/apps/web/frontend/package-lock.json
         
     - name: Install dependencies
       run: npm install
