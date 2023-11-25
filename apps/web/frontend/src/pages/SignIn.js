@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AuthNavBar from "../components/AuthNavBar";
 
-import logo from "../logo.png";
+import logo from "../static/logo.png";
 import SignUp from "./SignUp";
 
 

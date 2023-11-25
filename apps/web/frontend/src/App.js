@@ -9,9 +9,6 @@ import Account from './pages/Account'
 import NoPage from './pages/NoPage';
 
 
-
-
-
 export default function App() {
   return (
     <BrowserRouter>

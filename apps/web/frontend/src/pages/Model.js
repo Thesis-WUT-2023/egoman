@@ -11,10 +11,8 @@ export default function Model() {
 }
 
 
-/* App.js */
-
 // var CanvasJSReact = require('@canvasjs/react-charts');
- 
+
 
 
 
