@@ -1,4 +1,4 @@
-import logo from '../logo.png'
+import logo from '../static/logo.png'
 
 
 export default function AuthNavBar(){

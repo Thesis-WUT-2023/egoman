@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AuthNavBar from "../components/AuthNavBar"
 import NavBar from "../components/NavBar"
-import logo from "../logo.png"
+import logo from "../static/logo.png"
 
 
 
@@ -54,7 +54,7 @@ export default function SignUp(){
         }
         if(!inputFields.repassword)
           errors.repassword = "Verify the Password";
-        else if (inputValues.password != inputValues.repassword) {
+        else if (inputValues.password !== inputValues.repassword) {
           errors.repassword = "Passwords do not match";
         }
         
@@ -91,7 +91,7 @@ export default function SignUp(){
         <div className="form">
         
             <form onSubmit={handleSubmit}>
-              <img src={logo} id="logo-form"></img>
+              <img src={logo} id="logo-form" alt="Egoman-Logo"></img>
                 <div className="input-container">
                     <br/>
                     <div className="input-error-container">

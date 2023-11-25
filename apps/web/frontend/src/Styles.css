@@ -105,6 +105,7 @@ code {
     display: flex;
     align-items: flex-start;
     font-size: small;
+    font-weight: bold;
 }
 
 

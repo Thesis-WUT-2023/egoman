@@ -1,5 +1,8 @@
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
+
+
+
 export default function Account() {
     const [inputFields, setInputFields] = useState({
         name: "",
