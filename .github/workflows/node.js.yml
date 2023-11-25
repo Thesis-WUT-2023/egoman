@@ -12,9 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: egoman/apps/web/frontend
+        
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
@@ -29,6 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        working-directory: egoman/apps/web/frontend
         
     - name: Install dependencies
       run: npm install
