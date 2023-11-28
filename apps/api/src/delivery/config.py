@@ -19,6 +19,8 @@ class Config(BaseModel):
     ENV: Env = Env.DEVELOPMENT
 
     HASH_FUNC: str = getenv("HASH_FUNC", "SHA256")
+    JWT_SECRET: str = getenv("JWT_SECRET", "")
+    JWT_ALGO: str = getenv("JWT_ALGO", "")
 
 
 config = Config()

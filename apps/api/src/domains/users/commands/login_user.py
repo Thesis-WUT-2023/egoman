@@ -9,7 +9,7 @@ from src.monitoring import logging
 LOGGER = logging.get_logger(__name__)
 
 
-class CreateUserCommand(interfaces.ICreateUser):
+class LoginUserCommand(interfaces.ILoginUser):
     def __init__(self, storage: gateways.IUsersStorage, config: Config):
         self._storage = storage
         self._config = config
@@ -17,18 +17,18 @@ class CreateUserCommand(interfaces.ICreateUser):
     async def invoke(self, args):
         try:
             hash_func = hashlib.new(str(self._config.HASH_FUNC))
-            hash_func.update(args.new_user.password.encode())
+            hash_func.update(args.user.password.encode())
 
-            args.new_user.password = hash_func.hexdigest()
+            args.user.password = hash_func.hexdigest()
 
-            user_info = await self._storage.create(args.new_user)
+            user_info = await self._storage.login(args.user)
 
             token = jwt.encode(self._map_user_info_to_payload(user_info), self._config.JWT_SECRET, self._config.JWT_ALGO)
 
-            LOGGER.info("Succesfully created user {%s}", args.new_user.email)
+            LOGGER.info("Succesfully logged user {%s}", args.user.email)
             return token
-        except gateways.UserAlreadyExists:
-            raise interfaces.UserAlreadyExists()
+        except gateways.WrongCreadentials:
+            raise interfaces.WrongCreadentials()
         
     def _map_user_info_to_payload(self, user: entities.UserInfo) -> dict:
         return {

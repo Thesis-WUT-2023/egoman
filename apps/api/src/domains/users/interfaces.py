@@ -19,7 +19,19 @@ class ICreateUser(abc.ABC):
     class Args(BaseModel):
         new_user: entities.CreateUserRequest
 
-    class Result(entities.UserInfo):
+    class Result(str):
+        pass
+
+    @abc.abstractmethod
+    async def invoke(self, args: Args) -> Result:
+        pass
+
+
+class ILoginUser(abc.ABC):
+    class Args(BaseModel):
+        user: entities.LoginUserRequest
+    
+    class Result(str):
         pass
 
     @abc.abstractmethod

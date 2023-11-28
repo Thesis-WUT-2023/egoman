@@ -7,3 +7,7 @@ class IUsersStorage(abc.ABC):
     @abc.abstractmethod
     async def create(self, new_user: entities.CreateUserRequest) -> entities.UserInfo:
         pass
+
+    @abc.abstractmethod
+    async def login(self, new_user: entities.LoginUserRequest) -> entities.UserInfo:
+        pass
