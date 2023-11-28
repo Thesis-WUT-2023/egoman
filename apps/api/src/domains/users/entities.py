@@ -6,13 +6,21 @@ from pydantic import BaseModel
 class UserBaseProperties(BaseModel):
     email: str
     password: str
-    name: str
-    surname: str
 
 
 class UserInfo(UserBaseProperties):
     uid: UUID
+    name: str
+    surname: str
 
 
-class CreateUserRequest(UserBaseProperties):
-    pass
+class CreateUserRequest(BaseModel):
+    email: str
+    password: str
+    name: str
+    surname: str
+
+
+class LoginUserRequest(BaseModel):
+    email: str
+    password: str
