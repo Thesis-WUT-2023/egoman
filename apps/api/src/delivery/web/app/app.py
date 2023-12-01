@@ -1,8 +1,18 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.delivery.di.injector import create_injector
 from src.delivery.web.endpoints import users
 
+
+def _configure_cors(app):
+    front_url = "*"
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[front_url],
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 class App(FastAPI):
     def __init__(self):
@@ -19,4 +29,6 @@ class App(FastAPI):
 
 
 def create_app():
-    return App()
+    app = App()
+    _configure_cors(app)
+    return app
