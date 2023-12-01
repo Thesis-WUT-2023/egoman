@@ -14,13 +14,6 @@ export default function Model() {
 // var CanvasJSReact = require('@canvasjs/react-charts');
 
 
-
-
-
-
-
-
-
 // var CanvasJS = CanvasJSReact.CanvasJS;
 // var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  

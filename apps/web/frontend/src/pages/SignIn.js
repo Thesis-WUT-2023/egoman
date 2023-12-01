@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import AuthNavBar from "../components/AuthNavBar";
 
 import logo from "../static/logo.png";
 import SignUp from "./SignUp";
-
+import { UserContext } from "../Contexts/UserContext";
 
 
 
@@ -29,7 +29,9 @@ export default function SignIn() {
     const [errors, setErrors] = useState({
         email: "",
         password: "",
+        form: "",
     });
+    const [, setToken] = useContext(UserContext);
     const [submitting, setSubmitting] = useState(false);
 
     const validateValues = (inputValues) => {
@@ -56,6 +58,7 @@ export default function SignIn() {
         event.preventDefault();
         setErrors(validateValues(inputFields));
         setSubmitting(true);
+        Signin();
     };
 
     const finishSubmit = () => {
@@ -66,6 +69,28 @@ export default function SignIn() {
             finishSubmit();
         }
     }, [errors]);
+
+    const Signin = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"}, 
+            body: JSON.stringify({
+                email : inputFields.email,
+                password : inputFields.password}),
+            
+        };
+        const response = await fetch("http://localhost:3000/users/login", requestOptions);
+        const data = await response.json();
+
+        if(!response.ok){
+            errors.form = data.detail;
+        }
+        else {
+            setToken(data.access_token);
+        }
+
+    }
+
     return (
         <>
             <br />
