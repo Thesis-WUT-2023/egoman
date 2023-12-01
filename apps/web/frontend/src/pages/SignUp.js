@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import AuthNavBar from "../components/AuthNavBar"
 import NavBar from "../components/NavBar"
 import logo from "../static/logo.png"
+import { UserContext } from "../Contexts/UserContext";
 
 
 
 export default function SignUp(){
   
-      useEffect(() => {
-        
+      useEffect(() => {  
         const myLinkElement = document.getElementById('Auth'); 
         if (myLinkElement) {
           myLinkElement.href = '/SignIn';
@@ -28,10 +28,11 @@ export default function SignUp(){
         surname: "",
         email: "",
         password: "",
-        repassword: ""
+        repassword: "",
+        form: "",
       });
       const [submitting, setSubmitting] = useState(false);
-
+      const [, setToken] = useContext(UserContext);
       const validateValues = (inputValues) => {
         var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         let errors = {};
@@ -70,6 +71,7 @@ export default function SignUp(){
         event.preventDefault();
         setErrors(validateValues(inputFields))        
         setSubmitting(true);
+
       };
       
       const finishSubmit = () => {
@@ -81,6 +83,26 @@ export default function SignUp(){
         }
       }, [errors]);
 
+      const Signup = async () => {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            email: inputFields.email, 
+            password: inputFields.password,
+          name: inputFields.name,
+        surname: inputFields.surname}),
+        };
+    
+        const response = await fetch("http://localhost:3000/users/signup", requestOptions);
+        const data = await response.json();
+    
+        if (!response.ok) {
+          errors.form = data.detail;
+        } else {
+          setToken(data.access_token);
+        }
+      };
 
 
       return (
