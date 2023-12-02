@@ -141,12 +141,13 @@ code {
     max-width: inherit;
     padding: 1em;
     display: flex;
+    align-items: center;
     flex-direction: column;
 }
 .val-error {
     color: green;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     font-size: small;
     font-weight: bold;
 }

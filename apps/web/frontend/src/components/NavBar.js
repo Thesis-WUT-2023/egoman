@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import logo from '../static/logo.png';
+import Cookies from 'js-cookie';
 
 
 
 export default function NavBar() {
   const navigate = useNavigate();
-
   const SignOut = event => {
     
-    console.log(localStorage.getItem("authenticated"));
-    localStorage.setItem("authenticated", false);
+    console.log(Cookies.get("authenticated"));
+    Cookies.set("authenticated", false);
     
   };
   return (

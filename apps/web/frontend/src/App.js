@@ -7,9 +7,11 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Account from './pages/Account'
 import NoPage from './pages/NoPage';
-
+import Cookies from 'js-cookie';
 
 export default function App() {
+  Cookies.set("token","signedOut");
+  Cookies.set("authenticated", false);
   return (
     <BrowserRouter>
       <Routes>

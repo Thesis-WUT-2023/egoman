@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignIn from "./SignIn";
+import Cookies from "js-cookie";
 // import CanvasJSReact from '@canvasjs/react-charts';
 
 
@@ -11,24 +12,20 @@ export default function Model() {
     const navigate = useNavigate();
     const [authenticated, setauthenticated] = useState(null);
     useEffect(() => {
-        const loggedInUser = localStorage.getItem("authenticated");
-            if (loggedInUser) {
-                setauthenticated(loggedInUser);
-            }
+        const loggedInUser = Cookies.get("authenticated");
+        setauthenticated(loggedInUser);
+        if (!loggedInUser) {
+            navigate("/SignIn");
+        }
     }, []);
 
-    if(!authenticated){
-        navigate("/SignIn");
-        return (<h1>FUCK</h1>);
-    } 
-    else {
-        return (
-            <>
-            <NavBar />
-            <h1 className="h1">Model</h1>
-            </>
-        )  
-    }
+    return (
+        <>
+        <NavBar />
+        <h1 className="h1">Model</h1>
+        </>
+    )  
+    
     }
 
 
