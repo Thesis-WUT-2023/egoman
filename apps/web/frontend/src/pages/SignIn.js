@@ -1,10 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import AuthNavBar from "../components/AuthNavBar";
 import { useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
-import SignUp from "./SignUp";
-import { UserContext } from "../Contexts/UserContext";
-import Model from "./Model"
+import Cookies from "js-cookie";
+// import { UserContext } from "../Contexts/UserContext";
+
 
 
 
@@ -77,8 +76,8 @@ export default function SignIn() {
             setValidationError("Invalid Email or Password");
         }
         else {
-            // setToken(data.access_token);
-            localStorage.setItem("authenticated", true);
+            Cookies.set("token", data);
+            Cookies.set("authenticated", true);
             navigate("/Model");
         }
     }

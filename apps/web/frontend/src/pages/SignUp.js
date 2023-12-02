@@ -1,13 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import logo from "../static/logo.png"
-// import { UserContext } from "../Contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 
 export default function SignUp() {
   const navigate = useNavigate();
-
   const [inputFields, setInputFields] = useState({
     name: "",
     surname: "",
@@ -24,7 +23,6 @@ export default function SignUp() {
   });
   const [validationError, setValidationError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  // const [, setToken] = useContext(UserContext);
   const validateValues = (inputValues) => {
     var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let errors = {};
@@ -63,7 +61,6 @@ export default function SignUp() {
     event.preventDefault();
     setErrors(validateValues(inputFields))
     setSubmitting(true);
-
   };
 
   const finishSubmit = () => {
@@ -94,9 +91,9 @@ export default function SignUp() {
     if (!response.ok) {
       setValidationError("User already Exists");
     } else {
-      // setToken(data.access_token);
+      Cookies.set("token", data.access_token);
+      Cookies.set("authenticated", true);
       navigate("/Model");
-
     }
   };
 
