@@ -135,7 +135,21 @@ code {
     flex-direction: column;
 }
 
-
+.error-container {
+    margin: auto;
+    width: auto;
+    max-width: inherit;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+.val-error {
+    color: green;
+    display: flex;
+    align-items: center;
+    font-size: small;
+    font-weight: bold;
+}
 .button-5 {
     color: white;
     align-items: center;

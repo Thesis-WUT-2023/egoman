@@ -1,27 +1,17 @@
 import { useState, useEffect, useContext } from "react";
 import AuthNavBar from "../components/AuthNavBar";
-
+import { useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
 import SignUp from "./SignUp";
 import { UserContext } from "../Contexts/UserContext";
-
+import Model from "./Model"
 
 
 
 export default function SignIn() {
-    useEffect(() => {
-        // Get the <a> element by its id
-        const myLinkElement = document.getElementById('Auth');
+    const navigate = useNavigate();
+    const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated") || false));
 
-        // Check if the element exists
-        if (myLinkElement) {
-            // Change the href attribute of the <a> element
-            myLinkElement.href = '/SignUp';
-            myLinkElement.textContent = "Sign Up"
-        } else {
-            console.error("Element with id 'myLink' not found.");
-        }
-    }, []);
     const [inputFields, setInputFields] = useState({
         email: "",
         password: "",
@@ -29,9 +19,9 @@ export default function SignIn() {
     const [errors, setErrors] = useState({
         email: "",
         password: "",
-        form: "",
     });
-    const [, setToken] = useContext(UserContext);
+    const [validationError, setValidationError] = useState(' ');
+    // const [, setToken] = useContext(UserContext);
     const [submitting, setSubmitting] = useState(false);
 
     const validateValues = (inputValues) => {
@@ -58,11 +48,11 @@ export default function SignIn() {
         event.preventDefault();
         setErrors(validateValues(inputFields));
         setSubmitting(true);
-        Signin();
     };
 
     const finishSubmit = () => {
         console.log(inputFields);
+        Signin();
     };
     useEffect(() => {
         if (Object.keys(errors).length === 0 && submitting) {
@@ -73,22 +63,24 @@ export default function SignIn() {
     const Signin = async () => {
         const requestOptions = {
             method: "POST",
-            headers: {"Content-Type": "application/json"}, 
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email : inputFields.email,
-                password : inputFields.password}),
-            
+                email: inputFields.email,
+                password: inputFields.password
+            })
+
         };
         const response = await fetch("http://localhost:3000/users/login", requestOptions);
         const data = await response.json();
 
-        if(!response.ok){
-            errors.form = data.detail;
+        if (!response.ok) {
+            setValidationError("Invalid Email or Password");
         }
         else {
-            setToken(data.access_token);
+            // setToken(data.access_token);
+            localStorage.setItem("authenticated", true);
+            navigate("/Model");
         }
-
     }
 
     return (
@@ -100,6 +92,9 @@ export default function SignIn() {
             <div className="form">
                 <form onSubmit={handleSubmit}>
                     <img src={logo} id="logo-form" />
+                    <div className="error-container">
+                        <label className="val-error">{validationError}</label>
+                    </div>
                     <div className="input-container">
                         <br /><br />
                         <div className="input-error-container">
@@ -113,7 +108,6 @@ export default function SignIn() {
                             <label className="errors">{errors.password}</label>
                         </div>
                     </div>
-
                     <div className="button-container">
                         <input type="submit" className="button-5" value={"Sign In"} />
                     </div>
