@@ -1,5 +1,16 @@
 version: "3"
 services:
+  webserver:
+    build: 
+      network: host
+      context: apps/web/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+    depends_on:
+      - api
+
   api:
     build:
       context: apps/api
