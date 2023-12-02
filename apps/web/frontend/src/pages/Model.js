@@ -1,14 +1,35 @@
 import NavBar from "../components/NavBar";
 import React, { Component } from 'react';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SignIn from "./SignIn";
 // import CanvasJSReact from '@canvasjs/react-charts';
+
+
+
 export default function Model() {
-    return (
-        <>
-        <NavBar />
-        <h1 className="h1">Model</h1>
-        </>
-    )  
-}
+    const navigate = useNavigate();
+    const [authenticated, setauthenticated] = useState(null);
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("authenticated");
+            if (loggedInUser) {
+                setauthenticated(loggedInUser);
+            }
+    }, []);
+
+    if(!authenticated){
+        navigate("/SignIn");
+        return (<h1>FUCK</h1>);
+    } 
+    else {
+        return (
+            <>
+            <NavBar />
+            <h1 className="h1">Model</h1>
+            </>
+        )  
+    }
+    }
 
 
 // var CanvasJSReact = require('@canvasjs/react-charts');
