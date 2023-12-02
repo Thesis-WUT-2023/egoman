@@ -230,11 +230,29 @@ code {
 }
 
 .model-input-container {
-    margin: 0 5em;
+    /* margin: 0 5em;
     height: fit-content;
     width: auto;
     max-width: 300px;
     padding: 0em;
     display: flex;
+    flex-direction: row; */
+    margin: auto;
+    padding-left: 17rem;
+    width: auto;
+    max-width: inherit;
+    padding: 0 1 2em 0em;
+    display: flex;
+    align-items: center;
     flex-direction: row;
+}
+
+.lineChart-container {
+    margin: auto;
+    width: auto;
+    max-width: inherit;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
