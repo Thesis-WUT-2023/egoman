@@ -11,8 +11,6 @@ import Cookies from 'js-cookie';
 
 
 export default function App() {
-  Cookies.set("token","signedOut", {expires: 7});
-  Cookies.set("authenticated", false, {expires: 7});
   return (
     <BrowserRouter>
       <Routes>

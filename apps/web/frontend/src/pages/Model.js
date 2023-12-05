@@ -18,12 +18,20 @@ export default function Model() {
         input2: "",
         input3: "",
         input4: "",
+        input5: "",
+        input6: "",
+        input7: "",
+        input8: "",
     });
     const [errors, setErrors] = useState({
         input1: "",
         input2: "",
         input3: "",
         input4: "",
+        input5: "",
+        input6: "",
+        input7: "",
+        input8: "",
     });
 
     useEffect(() => {
@@ -88,9 +96,7 @@ export default function Model() {
             
         }
         else {
-            Cookies.set("token", data);
-            Cookies.set("authenticated", true);
-            navigate("/Model");
+            
         }
     }
     return (
@@ -104,22 +110,15 @@ export default function Model() {
                     <br/><br/>
                     <select className="model-input" name="Product" id="prod" placeholder="Product">
                         <option value="Product">Select a product</option>
-                        <option value="javascript">JavaScript</option>
-                        <option value="php">PHP</option>
-                        <option value="java">Java</option>
-                        <option value="golang">Golang</option>
-                        <option value="python">Python</option>
-                        <option value="c#">C#</option>
-                        <option value="C++">C++</option>
-                        <option value="erlang">Erlang</option>
+                        
                     </select>
                      <input type="month" placeholder="Prediction Month" name="input4" required min="2020-01" max="2025-12"className="model-input"/>
-                     <input type="number" placeholder="Sold Units Month 1 Before" name="input3" required className="model-input"/>
-                     <input type="number" placeholder="Sold Units Month 2 Before" name="input4" required className="model-input"/>
-                     <input type="number" placeholder="Sold Units Month 3 Before" name="input4" required className="model-input"/>
-                     <input type="number" placeholder="Visits POChP" name="input4" required className="model-input"/>
-                     <input type="number" placeholder="Visits ASTMA" name="input4" required className="model-input"/>
-                     <input type="number" placeholder="Sold Products Whole Period" name="input4" required className="model-input"/>
+                     <input type="number" placeholder="Sold Units 1 Month Before" name="input3" min={0} required className="model-input"/>
+                     <input type="number" placeholder="Sold Units 2 Months Before" name="input4" min={0} required className="model-input"/>
+                     <input type="number" placeholder="Sold Units 3 Months Before" name="input4" min={0} required className="model-input"/>
+                     <input type="number" placeholder="Visits POChP" name="input4" min={0} required className="model-input"/>
+                     <input type="number" placeholder="Visits ASTMA" name="input4" min={0} required className="model-input"/>
+                     <input type="number" placeholder="Sold Products Whole Period" name="input4" min={0} required className="model-input"/>
                  </div>
                  <br/><br/>
          <div className="button-container">
