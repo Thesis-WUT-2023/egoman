@@ -1,10 +1,23 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
 import Cookies from "js-cookie";
-// import { UserContext } from "../Contexts/UserContext";
 
+export const validateValues = (inputValues) => {
+    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let errors = {};
 
+    if (!inputValues.email)
+        errors.email = "Email is required";
+    else if (!validRegex.test(inputValues.email.toLowerCase())) {
+        errors.email = "Invalid Email";
+    }
+
+    if (!inputValues.password)
+        errors.password = "Password is required";
+
+    return errors;
+};
 
 
 export default function SignIn() {
@@ -20,23 +33,9 @@ export default function SignIn() {
         password: "",
     });
     const [validationError, setValidationError] = useState(' ');
-    // const [, setToken] = useContext(UserContext);
     const [submitting, setSubmitting] = useState(false);
 
-    const validateValues = (inputValues) => {
-        var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        let errors = {};
 
-        if (!inputFields.email)
-            errors.email = "Email is required";
-        else if (!validRegex.test(inputFields.email.toLowerCase())) {
-            errors.email = "Invalid Email";
-        }
-        if (!inputFields.password)
-            errors.password = "Password is required";
-
-        return errors;
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;

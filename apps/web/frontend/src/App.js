@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect, Component} from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Model from './pages/Model'
@@ -12,7 +12,6 @@ import Cookies from 'js-cookie';
 
 export default function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Model />} />
         <Route exact path="/Model" element={<Model />} />
@@ -21,6 +20,5 @@ export default function App() {
         <Route path='Account' element={<Account />} />
         <Route path='/*' element={<NoPage />} />
       </Routes>
-    </BrowserRouter>
   )
 }

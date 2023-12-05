@@ -3,6 +3,34 @@ import logo from "../static/logo.png"
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
+export const validateValues = (inputValues) => {
+  var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let errors = {};
+
+  if (!inputValues.name)
+    errors.name = "Name is required";
+  if (!inputValues.surname)
+    errors.surname = "Surname is required";
+
+  if (!inputValues.email)
+    errors.email = "Email is required";
+  else if (!validRegex.test(inputValues.email)) {
+    errors.email = "Invalid Email";
+  }
+
+  if (!inputValues.password)
+    errors.password = "Password is required";
+  else if (inputValues.password.length < 8) {
+    errors.password = "Password is short";
+  }
+  if (!inputValues.repassword)
+    errors.repassword = "Verify the password";
+  else if (inputValues.password !== inputValues.repassword) {
+    errors.repassword = "Passwords do not match";
+  }
+
+  return errors;
+};
 
 
 export default function SignUp() {
@@ -23,35 +51,7 @@ export default function SignUp() {
   });
   const [validationError, setValidationError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const validateValues = (inputValues) => {
-    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    let errors = {};
-
-    if (!inputFields.name)
-      errors.name = "Name is required";
-    if (!inputFields.surname)
-      errors.surname = "Surname is required";
-
-    if (!inputFields.email)
-      errors.email = "Email is required";
-    if (!validRegex.test(inputFields.email)) {
-      errors.email = "Invalid Email";
-    }
-
-    if (!inputFields.password)
-      errors.password = "Password is required";
-    else if (inputValues.password.length < 8) {
-      errors.password = "Password is short";
-    }
-    if (!inputFields.repassword)
-      errors.repassword = "Verify the Password";
-    else if (inputValues.password !== inputValues.repassword) {
-      errors.repassword = "Passwords do not match";
-    }
-
-    return errors;
-  };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputFields({ ...inputFields, [name]: value });

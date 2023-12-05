@@ -1,14 +1,24 @@
 import NavBar from "../components/NavBar";
-import React, { Component } from 'react';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Component } from "react";
 import { useNavigate } from "react-router-dom";
-import SignIn from "./SignIn";
 import Cookies from "js-cookie";
 import BasicLineChart from "../components/LineChart";
-import MonthPicker from "../components/MonthPicker";
-// import CanvasJSReact from '@canvasjs/react-charts';
 
 
+
+export const validateValues = (inputValues) => {
+    let errors = {};
+
+    // if (!inputFields.email)
+    //     errors.email = "Email is required";
+    // else if (!validRegex.test(inputFields.email.toLowerCase())) {
+    //     errors.email = "Invalid Email";
+    // }
+    // if (!inputFields.password)
+    //     errors.password = "Password is required";
+
+    return errors;
+};
 
 export default function Model() {
     const navigate = useNavigate();
@@ -43,20 +53,6 @@ export default function Model() {
     }, []);
 
     const [submitting, setSubmitting] = useState(false);
-
-    const validateValues = (inputValues) => {
-        let errors = {};
-
-        // if (!inputFields.email)
-        //     errors.email = "Email is required";
-        // else if (!validRegex.test(inputFields.email.toLowerCase())) {
-        //     errors.email = "Invalid Email";
-        // }
-        // if (!inputFields.password)
-        //     errors.password = "Password is required";
-
-        return errors;
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
