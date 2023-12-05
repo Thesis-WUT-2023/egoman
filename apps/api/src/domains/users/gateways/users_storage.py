@@ -9,9 +9,11 @@ class IUsersStorage(abc.ABC):
         pass
 
     @abc.abstractmethod
-    async def login(self, new_user: entities.LoginUserRequest) -> entities.UserInfo:
+    async def login(self, user: entities.LoginUserRequest) -> entities.UserInfo:
         pass
 
     @abc.abstractmethod
-    async def update(self, new_user: entities.UpdateUserSettingsRequest) -> entities.UserInfo:
+    async def update(
+        self, new_user_settings: entities.UpdateUserSettingsRequest
+    ) -> entities.UserInfo:
         pass

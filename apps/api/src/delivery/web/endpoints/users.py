@@ -2,9 +2,23 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydio.api import Injector
 
 from src.delivery.web.middleware.injector import get_injector
-from src.domains.users.interfaces import ICreateUser, ILoginUser, IUpdateUserSettings, WrongCreadentials, UserAlreadyExists
-from src.domains.users.commands import CreateUserCommand, LoginUserCommand, UpdateUserSettingsCommand
-from src.domains.users.entities import LoginUserRequest, CreateUserRequest, UpdateUserSettingsRequest
+from src.domains.users.commands import (
+    CreateUserCommand,
+    LoginUserCommand,
+    UpdateUserSettingsCommand,
+)
+from src.domains.users.entities import (
+    CreateUserRequest,
+    LoginUserRequest,
+    UpdateUserSettingsRequest,
+)
+from src.domains.users.interfaces import (
+    ICreateUser,
+    ILoginUser,
+    IUpdateUserSettings,
+    UserAlreadyExists,
+    WrongCreadentials,
+)
 
 router = APIRouter()
 
@@ -29,10 +43,12 @@ async def login_user(user: LoginUserRequest, injector: Injector = Depends(get_in
         return token
     except WrongCreadentials:
         raise HTTPException(401, detail="Invalid credentials")
-    
+
 
 @router.put("/update")
-async def update_user_settings(user_settings: UpdateUserSettingsRequest, injector: Injector = Depends(get_injector)) -> str:
+async def update_user_settings(
+    user_settings: UpdateUserSettingsRequest, injector: Injector = Depends(get_injector)
+) -> str:
     try:
         command: UpdateUserSettingsCommand = await injector.inject(IUpdateUserSettings)
         args = UpdateUserSettingsCommand.Args(new_settings=user_settings)

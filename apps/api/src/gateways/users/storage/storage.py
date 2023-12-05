@@ -1,4 +1,4 @@
-from sqlalchemy import select, and_
+from sqlalchemy import and_, select
 from sqlalchemy.exc import IntegrityError
 
 from src.domains.core.storage import StorageSession
@@ -33,37 +33,41 @@ class DatabaseUsersStorage(gateways.IUsersStorage):
             except IntegrityError:
                 LOGGER.error("User with email %s already exists", new_user.email)
                 raise UserAlreadyExists()
-            
+
             return self._map_orm_to_entity(obj)
-            
+
     async def login(self, user: entities.LoginUserRequest) -> entities.UserInfo:
         async with self._storage_session.begin_session() as db_session:
-            query = select(tables.User).where(and_(tables.User.email == user.email, tables.User.password == user.password))
+            query = select(tables.User).where(
+                and_(tables.User.email == user.email, tables.User.password == user.password)
+            )
             result = await db_session.execute(query)
             obj = result.scalars().first()
 
             if obj is None:
                 LOGGER.error("Wrong credentials for user %s", user.email)
                 raise WrongCreadentials()
-            
+
             return self._map_orm_to_entity(obj)
-        
-    async def update(self, new_user: entities.UpdateUserSettingsRequest) -> entities.UserInfo:
+
+    async def update(
+        self, new_user_settings: entities.UpdateUserSettingsRequest
+    ) -> entities.UserInfo:
         async with self._storage_session.begin_session() as db_session:
-            query = select(tables.User).where(tables.User.uid == new_user.uid)
+            query = select(tables.User).where(tables.User.uid == new_user_settings.uid)
             result = await db_session.execute(query)
             obj = result.scalars().first()
 
             if obj is None:
-                LOGGER.error("Wrong credentials for user %s", new_user.uid)
+                LOGGER.error("Wrong credentials for user %s", new_user_settings.uid)
                 raise WrongCreadentials()
-            
-            obj.name = new_user.new_name
-            obj.surname = new_user.new_surname
+
+            obj.name = new_user_settings.new_name
+            obj.surname = new_user_settings.new_surname
 
             await db_session.commit()
             await db_session.refresh(obj)
-            
+
             return self._map_orm_to_entity(obj)
 
     def _map_orm_to_entity(self, user: tables.User) -> entities.UserInfo:
