@@ -24,24 +24,24 @@ export default function Model() {
     const navigate = useNavigate();
     const [authenticated, setauthenticated] = useState(null);
     const [inputFields, setInputFields] = useState({
-        input1: "",
-        input2: "",
-        input3: "",
-        input4: "",
-        input5: "",
-        input6: "",
-        input7: "",
-        input8: "",
+        product: "",
+        month: "",
+        month1: "",
+        month2: "",
+        month3: "",
+        astma: "",
+        pochp: "",
+        sold: "",
     });
     const [errors, setErrors] = useState({
-        input1: "",
-        input2: "",
-        input3: "",
-        input4: "",
-        input5: "",
-        input6: "",
-        input7: "",
-        input8: "",
+        product: "",
+        month: "",
+        month1: "",
+        month2: "",
+        month3: "",
+        astma: "",
+        pochp: "",
+        sold: "",
     });
 
     useEffect(() => {
