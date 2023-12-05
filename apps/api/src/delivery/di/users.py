@@ -1,11 +1,15 @@
 from pydio.api import Injector, Provider
 
-from src.domains.core.storage import StorageSession
-from src.domains.users.interfaces import ICreateUser, ILoginUser, IUpdateUserSettings
-from src.domains.users.gateways import IUsersStorage
-from src.domains.users.commands import LoginUserCommand, CreateUserCommand, UpdateUserSettingsCommand
-from src.gateways.users.storage import DatabaseUsersStorage
 from src.delivery.config import Config
+from src.domains.core.storage import StorageSession
+from src.domains.users.commands import (
+    CreateUserCommand,
+    LoginUserCommand,
+    UpdateUserSettingsCommand,
+)
+from src.domains.users.gateways import IUsersStorage
+from src.domains.users.interfaces import ICreateUser, ILoginUser, IUpdateUserSettings
+from src.gateways.users.storage import DatabaseUsersStorage
 
 provider = Provider()
 

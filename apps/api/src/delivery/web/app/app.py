@@ -14,6 +14,7 @@ def _configure_cors(app):
         allow_headers=["*"],
     )
 
+
 class App(FastAPI):
     def __init__(self):
         super().__init__(title="Egoman API")

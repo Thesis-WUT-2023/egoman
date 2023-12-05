@@ -30,7 +30,7 @@ class ICreateUser(abc.ABC):
 class ILoginUser(abc.ABC):
     class Args(BaseModel):
         user: entities.LoginUserRequest
-    
+
     class Result(str):
         pass
 
