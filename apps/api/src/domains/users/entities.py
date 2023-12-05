@@ -24,3 +24,9 @@ class CreateUserRequest(BaseModel):
 class LoginUserRequest(BaseModel):
     email: str
     password: str
+
+
+class UpdateUserSettingsRequest(BaseModel):
+    uid: UUID
+    new_name: str
+    new_surname: str
