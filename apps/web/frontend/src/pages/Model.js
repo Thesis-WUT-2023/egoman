@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SignIn from "./SignIn";
 import Cookies from "js-cookie";
 import BasicLineChart from "../components/LineChart";
+import MonthPicker from "../components/MonthPicker";
 // import CanvasJSReact from '@canvasjs/react-charts';
 
 
@@ -28,7 +29,7 @@ export default function Model() {
     useEffect(() => {
         const loggedInUser = Cookies.get("authenticated");
         setauthenticated(loggedInUser);
-        if (!loggedInUser) {
+        if (loggedInUser === "false") {
             navigate("/SignIn");
         }
     }, []);
@@ -100,17 +101,31 @@ export default function Model() {
         <BasicLineChart/>
         <form onSubmit={handleSubmit}>
                  <div className="model-input-container">
-                     <br/><br/>
-                     <input type="text" placeholder="Input 1" name="input1" required className="input"/>           
-                     <input type="text" placeholder="Input 2" name="input4" required className="input"/>
-                     <input type="text" placeholder="Input 3" name="input3" required className="input"/>
-                     <input type="text" placeholder="Input 4" name="input4" required className="input"/>
+                    <br/><br/>
+                    <select className="model-input" name="Product" id="prod" placeholder="Product">
+                        <option value="Product">Select a product</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">PHP</option>
+                        <option value="java">Java</option>
+                        <option value="golang">Golang</option>
+                        <option value="python">Python</option>
+                        <option value="c#">C#</option>
+                        <option value="C++">C++</option>
+                        <option value="erlang">Erlang</option>
+                    </select>
+                     <input type="month" placeholder="Prediction Month" name="input4" required min="2020-01" max="2025-12"className="model-input"/>
+                     <input type="number" placeholder="Sold Units Month 1 Before" name="input3" required className="model-input"/>
+                     <input type="number" placeholder="Sold Units Month 2 Before" name="input4" required className="model-input"/>
+                     <input type="number" placeholder="Sold Units Month 3 Before" name="input4" required className="model-input"/>
+                     <input type="number" placeholder="Visits POChP" name="input4" required className="model-input"/>
+                     <input type="number" placeholder="Visits ASTMA" name="input4" required className="model-input"/>
+                     <input type="number" placeholder="Sold Products Whole Period" name="input4" required className="model-input"/>
                  </div>
                  <br/><br/>
          <div className="button-container">
          <input type="submit" className="model-submit-button" />
          </div>
-0         </form>
+         </form>
         </>
     )  
     

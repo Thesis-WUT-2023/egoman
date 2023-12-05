@@ -144,6 +144,7 @@ code {
     align-items: center;
     flex-direction: column;
 }
+
 .val-error {
     color: green;
     display: flex;
@@ -151,6 +152,7 @@ code {
     font-size: small;
     font-weight: bold;
 }
+
 .button-5 {
     color: white;
     align-items: center;
@@ -237,14 +239,36 @@ code {
     padding: 0em;
     display: flex;
     flex-direction: row; */
-    margin: auto;
-    padding-left: 17rem;
-    width: auto;
+
+    margin-left: 20px;
+    /* display: flex; */
+    /* padding-left: 17rem; */
+    /* width: auto;
     max-width: inherit;
     padding: 0 1 2em 0em;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row; */
+}
+
+
+.model-input {
+    width: 20%;
+    height: 35px;
+    display: inline-block;
+    text-decoration-color: #41AAA1;
+    border: 2px solid grey;
+    border-radius: 10px;
+    color: #41AAA1;
+    font-size: 20px;
+    font-family: 'Newsreader';
+}
+
+@media screen and (max-width: 900px) {
+
+    .model-input {
+        width: 70%;
+    }
 }
 
 .lineChart-container {
