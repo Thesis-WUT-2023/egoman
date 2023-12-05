@@ -17,9 +17,12 @@
     "axios": "^1.6.2",
     "js-cookie": "^3.0.5",
     "mui": "^0.0.1",
+    "nvm": "^0.0.4",
     "react": "^18.2.0",
+    "react-datepicker": "^4.24.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-simple-month-picker": "^0.2.3",
     "styled-components": "^6.1.1",
     "web-vitals": "^2.1.4"
   },

@@ -7,10 +7,8 @@ import Cookies from 'js-cookie';
 export default function NavBar() {
   const navigate = useNavigate();
   const SignOut = event => {
-    
-    console.log(Cookies.get("authenticated"));
     Cookies.set("authenticated", false);
-    
+    Cookies.set("token", "");
   };
   return (
     <nav className="nav">
