@@ -37,3 +37,15 @@ class ILoginUser(abc.ABC):
     @abc.abstractmethod
     async def invoke(self, args: Args) -> Result:
         pass
+
+
+class IUpdateUserSettings(abc.ABC):
+    class Args(BaseModel):
+        new_settings: entities.UpdateUserSettingsRequest
+
+    class Result(entities.UserInfo):
+        pass
+
+    @abc.abstractmethod
+    async def invoke(self, args: Args) -> Result:
+        pass
