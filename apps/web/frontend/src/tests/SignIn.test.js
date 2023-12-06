@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, getAllByPlaceholderText } from '@testing-library/react';
 import SignIn, { validateValues } from '../pages/SignIn';
 
 
@@ -21,8 +21,6 @@ describe("login", () => {
         expect(errors).toStrictEqual({ email: "Email is required", password: "Password is required" });
 
     });
-    
-
 });
 
 

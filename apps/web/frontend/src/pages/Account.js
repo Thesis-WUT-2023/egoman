@@ -47,8 +47,6 @@ export default function Account() {
     });
     const [submitting, setSubmitting] = useState(false);
 
-
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputFields({ ...inputFields, [name]: value });
@@ -56,18 +54,40 @@ export default function Account() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setErrors(validateValues(inputFields))
+        setErrors(validateValues(inputFields));
         setSubmitting(true);
     };
 
     const finishSubmit = () => {
         console.log(inputFields);
+        UpdateAccount();
     };
     useEffect(() => {
         if (Object.keys(errors).length === 0 && submitting) {
             finishSubmit();
         }
     }, [errors]);
+
+    const UpdateAccount = async () => {
+        const requestOptions = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: inputFields.email,
+                password: inputFields.password
+            })
+
+        };
+        const response = await fetch("http://localhost:3000/users/update", requestOptions);
+        const data = await response.json();
+
+        if (!response.ok) {
+            
+        }
+        else {
+            
+        }
+    }
     return (
         <>
             <NavBar />

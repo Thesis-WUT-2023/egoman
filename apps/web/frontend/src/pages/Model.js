@@ -9,13 +9,18 @@ import BasicLineChart from "../components/LineChart";
 export const validateValues = (inputValues) => {
     let errors = {};
 
-    // if (!inputFields.email)
-    //     errors.email = "Email is required";
-    // else if (!validRegex.test(inputFields.email.toLowerCase())) {
-    //     errors.email = "Invalid Email";
-    // }
-    // if (!inputFields.password)
-    //     errors.password = "Password is required";
+    // if(!inputValues.product)
+    //     errors.product = "Product is required";
+
+    // if(!inputValues.month)
+    //     errors.month = "Month is required";
+
+    // if(!inputValues.month1)
+    //     errors.
+
+    if(inputValues.month1 < 0 || inputValues.month2 < 0 || inputValues.month3 < 0 || inputValues.astma < 0 || inputValues.pochp < 0 || inputValues.sold < 0)
+        errors.nums = "All fields should be higher than 0";
+    
 
     return errors;
 };
@@ -36,12 +41,7 @@ export default function Model() {
     const [errors, setErrors] = useState({
         product: "",
         month: "",
-        month1: "",
-        month2: "",
-        month3: "",
-        astma: "",
-        pochp: "",
-        sold: "",
+        nums: "",
     });
 
     useEffect(() => {
@@ -108,13 +108,13 @@ export default function Model() {
                         <option value="Product">Select a product</option>
                         
                     </select>
-                     <input type="month" placeholder="Prediction Month" name="input4" required min="2020-01" max="2025-12"className="model-input"/>
-                     <input type="number" placeholder="Sold Units 1 Month Before" name="input3" min={0} required className="model-input"/>
-                     <input type="number" placeholder="Sold Units 2 Months Before" name="input4" min={0} required className="model-input"/>
-                     <input type="number" placeholder="Sold Units 3 Months Before" name="input4" min={0} required className="model-input"/>
-                     <input type="number" placeholder="Visits POChP" name="input4" min={0} required className="model-input"/>
-                     <input type="number" placeholder="Visits ASTMA" name="input4" min={0} required className="model-input"/>
-                     <input type="number" placeholder="Sold Products Whole Period" name="input4" min={0} required className="model-input"/>
+                     <input type="month" placeholder="Prediction Month" name="input4" required min="2020-01" max="2025-12"className="model-input" onChange={handleChange}/>
+                     <input type="number" placeholder="Sold Units 1 Month Before" name="input3" min={0} required className="model-input" onChange={handleChange}/>
+                     <input type="number" placeholder="Sold Units 2 Months Before" name="input4" min={0} required className="model-input" onChange={handleChange}/>
+                     <input type="number" placeholder="Sold Units 3 Months Before" name="input4" min={0} required className="model-input" onChange={handleChange}/>
+                     <input type="number" placeholder="Visits POChP" name="input4" min={0} required className="model-input" onChange={handleChange}/>
+                     <input type="number" placeholder="Visits ASTMA" name="input4" min={0} required className="model-input" onChange={handleChange}/>
+                     <input type="number" placeholder="Sold Products Whole Period" name="input4" min={0} required className="model-input" onChange={handleChange} />
                  </div>
                  <br/><br/>
          <div className="button-container">
