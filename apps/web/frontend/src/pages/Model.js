@@ -3,7 +3,7 @@ import React, { useEffect, useState, Component } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import BasicLineChart from "../components/LineChart";
-
+import '../Styles/Model.css';
 
 
 export const validateValues = (inputValues) => {
@@ -18,7 +18,8 @@ export const validateValues = (inputValues) => {
     // if(!inputValues.month1)
     //     errors.
 
-    if(inputValues.month1 < 0 || inputValues.month2 < 0 || inputValues.month3 < 0 || inputValues.astma < 0 || inputValues.pochp < 0 || inputValues.sold < 0)
+    if(inputValues.month1 < 0 || inputValues.month2 < 0 || inputValues.month3 < 0 || inputValues.astma < 0 
+        || inputValues.pochp < 0 || inputValues.sold < 0)
         errors.nums = "All fields should be higher than 0";
     
 
@@ -104,11 +105,10 @@ export default function Model() {
         <form onSubmit={handleSubmit}>
                  <div className="model-input-container">
                     <br/><br/>
-                    <select className="model-input" name="Product" id="prod" placeholder="Product">
+                    <select className="model-select" name="Product" id="prod" placeholder="Product">
                         <option value="Product">Select a product</option>
-                        
                     </select>
-                     <input type="month" placeholder="Prediction Month" name="input4" required min="2020-01" max="2025-12"className="model-input" onChange={handleChange}/>
+                     <input type="month" name="input4" required min="2020-01" max="2025-12"className="input" onChange={handleChange}/>
                      <input type="number" placeholder="Sold Units 1 Month Before" name="input3" min={0} required className="model-input" onChange={handleChange}/>
                      <input type="number" placeholder="Sold Units 2 Months Before" name="input4" min={0} required className="model-input" onChange={handleChange}/>
                      <input type="number" placeholder="Sold Units 3 Months Before" name="input4" min={0} required className="model-input" onChange={handleChange}/>
@@ -118,7 +118,7 @@ export default function Model() {
                  </div>
                  <br/><br/>
          <div className="button-container">
-         <input type="submit" className="model-submit-button" />
+            <input type="submit" className="model-submit-button" />
          </div>
          </form>
         </>

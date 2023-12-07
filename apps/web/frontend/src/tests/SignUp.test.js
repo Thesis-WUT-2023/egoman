@@ -8,12 +8,12 @@ describe("signup", () => {
         let errors = validateValues(values);
         expect(errors).toStrictEqual({});
     });
-    // test("validate function should fail on incorrect input ", () => {
-    //     const values = { email: "text@test.c", password: "test" };
-    //     let errors = validateValues(values);
-    //     expect(errors).toStrictEqual({ email: "Invalid Email" });
+    test("validate function should fail on incorrect input ", () => {
+        const values = { name:"Test", surname:"Test", email: "test@test.c", password: "test1234", repassword:"test1234" };
+        let errors = validateValues(values);
+        expect(errors).toStrictEqual({ email: "Invalid Email" });
 
-    // });
+    });
     test("validate function should fail on empty input ", () => {
         const values = { name:"", surname:"", email: "", password: "", repassword:""};
         let errors = validateValues(values);

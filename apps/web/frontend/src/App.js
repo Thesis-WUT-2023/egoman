@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, Component } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./Styles/Styles.css";
 import Model from './pages/Model'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'

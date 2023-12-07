@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import "./Styles.css";
 import App from './App';
 import NavBar from './components/NavBar'
 import reportWebVitals from './reportWebVitals';

@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+
+import '../Styles/NavBar.css';
 import logo from '../static/logo.png';
 import Cookies from 'js-cookie';
 

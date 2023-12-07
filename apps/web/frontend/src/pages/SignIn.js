@@ -32,7 +32,7 @@ export default function SignIn() {
         email: "",
         password: "",
     });
-    const [validationError, setValidationError] = useState(' ');
+    const [formError, setFormError] = useState(' ');
     const [submitting, setSubmitting] = useState(false);
 
 
@@ -72,7 +72,7 @@ export default function SignIn() {
         const data = await response.json();
 
         if (!response.ok) {
-            setValidationError("Invalid Email or Password");
+            setFormError("Invalid Email or Password");
         }
         else {
             Cookies.set("token", data);
@@ -80,7 +80,6 @@ export default function SignIn() {
             navigate("/Model");
         }
     }
-
     return (
         <>
             <br />
@@ -90,20 +89,25 @@ export default function SignIn() {
             <div className="form">
                 <form onSubmit={handleSubmit}>
                     <img src={logo} id="logo-form" />
-                    <div className="error-container">
-                        <label className="val-error">{validationError}</label>
+                    <div className="form-error-container">
+                        <label className="form-error">{formError}</label>
                     </div>
-                    <div className="input-container">
+                    <div className="form-inputs-container">
                         <br /><br />
                         <div className="input-error-container">
-                            <input type="text" name="email" placeholder="Email" className="input"
-                                value={inputFields.email} onChange={handleChange}></input>
-                            <label className="errors">{errors.email}</label>
+                            <div className="input-label-container">
+                                <input type="text" name="email" className="input" value={inputFields.email} onChange={handleChange}></input>
+                                <label className="label">Email </label>
+                            </div>
+                            <label className="error">{errors.email}</label>
                         </div>
                         <div className="input-error-container">
-                            <input type="password" placeholder="Password" name="password" className="input"
-                                value={inputFields.password} onChange={handleChange} />
-                            <label className="errors">{errors.password}</label>
+                            <div className="input-label-container">
+                                <input type="password" name="password" className="input"
+                                    value={inputFields.password} onChange={handleChange} />
+                                <label className="label">Password</label>
+                            </div>
+                            <label className="error">{errors.password}</label>
                         </div>
                     </div>
                     <div className="button-container">

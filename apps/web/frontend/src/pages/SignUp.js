@@ -51,7 +51,7 @@ export default function SignUp() {
   });
   const [validationError, setValidationError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputFields({ ...inputFields, [name]: value });
@@ -106,35 +106,55 @@ export default function SignUp() {
 
         <form onSubmit={handleSubmit}>
           <img src={logo} id="logo-form" alt="Egoman-Logo"></img>
-          <div className="error-container">
-            <label className="val-error">{validationError}</label>
+          <div className="form-error-container">
+            <label className="form-error">{validationError}</label>
           </div>
-          <div className="input-container">
+          <div className="form-inputs-container">
             <br />
+
             <div className="input-error-container">
-              <input type="text" name="name" placeholder="Name"
-                className="input" value={inputFields.name} onChange={handleChange} />
-              <label className="errors">{errors.name}</label>
+              <div className="input-label-container">
+                <input type="text" name="name" className="input" value={inputFields.name} onChange={handleChange} />
+                <label className="label">Name</label>
+              </div>
+              <label className="error">{errors.name}</label>
+            </div>
+
+
+            <div className="input-error-container">
+              <div className="input-label-container">
+                <input type="text" name="surname" className="input" value={inputFields.surname} onChange={handleChange} />
+                <label className="label">Surname</label>
+              </div>
+              <label className="error">{errors.surname}</label>
+            </div>
+
+            <div className="input-error-container">
+              <div className="input-label-container">
+                <input type="text" name="email"
+                  className="input" value={inputFields.email} onChange={handleChange} />
+                <label className="label">Email</label>
+              </div>
+              <label className="error">{errors.email}</label>
+            </div>
+
+            <div className="input-error-container">
+              <div className="input-label-container">
+
+                <input type="password" name="password"
+                  className="input" value={inputFields.password} onChange={handleChange} />
+                <label className="label">Password</label>
+              </div>
+              <label className="error">{errors.password}</label>
             </div>
             <div className="input-error-container">
-              <input type="text" name="surname" placeholder="Surname"
-                className="input" value={inputFields.surname} onChange={handleChange} />
-              <label className="errors">{errors.surname}</label>
-            </div>
-            <div className="input-error-container">
-              <input type="text" name="email" placeholder="Email"
-                className="input" value={inputFields.email} onChange={handleChange} />
-              <label className="errors">{errors.email}</label>
-            </div>
-            <div className="input-error-container">
-              <input type="password" placeholder="Password" name="password"
-                className="input" value={inputFields.password} onChange={handleChange} />
-              <label className="errors">{errors.password}</label>
-            </div>
-            <div className="input-error-container">
-              <input type="password" placeholder="Repeat Password" name="repassword"
-                className="input" value={inputFields.repassword} onChange={handleChange} />
-              <label className="errors">{errors.repassword}</label>
+              <div className="input-label-container">
+
+                <input type="password" name="repassword"
+                  className="input" value={inputFields.repassword} onChange={handleChange} />
+                <label className="label">Repeat Password</label>
+              </div>
+              <label className="error">{errors.repassword}</label>
             </div>
           </div>
           <br />
