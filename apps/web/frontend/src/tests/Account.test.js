@@ -1,41 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Model, { validateValues } from '../pages/Model';
+import Account, { validateValues } from '../pages/Account';
 
 
-describe("login", () => {
+describe("Update Account", () => {
     test("validate function should pass on correct input ", () => {
-        const values = {
-            product: "Test",
-            month: "12/2022",
-            month1: "1",
-            month2: "2",
-            month3: "3",
-            astma: "0",
-            pochp: "0",
-            sold: "3",
-        };
+        const values = { name:"Test", surname:"Test", email: "test@test.com", password: "test1234", repassword:"test1234"};
         let errors = validateValues(values);
         expect(errors).toStrictEqual({});
-
     });
-
-    test("validate function should fails on incorrect input ", () => {
-        const values =
-        {
-            product: "Test",
-            month: "12/2022",
-            month1: "-2",
-            month2: "2",
-            month3: "3",
-            astma: "0",
-            pochp: "0",
-            sold: "3",
-        };
-        let errors = validateValues(values);
-        expect(errors).toStrictEqual({ nums: "All fields should be higher than 0" });
-
-    });
-
+    
 
 });
 
