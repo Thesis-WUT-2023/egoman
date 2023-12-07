@@ -1,5 +1,7 @@
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom'
 
 export const validateValues = (inputValues) => {
     var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -31,6 +33,8 @@ export const validateValues = (inputValues) => {
 };
 
 export default function Account() {
+    const navigate = useNavigate();
+    const [authenticated, setAuthenticated] = useState(null);
     const [inputFields, setInputFields] = useState({
         name: "",
         surname: "",
@@ -46,7 +50,10 @@ export default function Account() {
         repassword: ""
     });
     const [submitting, setSubmitting] = useState(false);
-
+    const [formError, setFormError] = useState(null);
+    useEffect(() => {
+        setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
+    }, []);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputFields({ ...inputFields, [name]: value });
@@ -82,53 +89,81 @@ export default function Account() {
         const data = await response.json();
 
         if (!response.ok) {
-            
+
         }
         else {
-            
+
         }
     }
-    return (
-        <>
-            <NavBar />
-            <h1 className="h1">User Account</h1>
-            <div className="form">
-                <form onSubmit={handleSubmit}>
-                    <p className="">Edit Your information</p>
-                    <div className="input-container">
+    if (authenticated) {
+        return (
+            <>
+                <NavBar />
+                <h1 className="h1">User Account</h1>
+                <div className="form">
+
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-error-container">
+                            <label className="form-error">{formError}</label>
+                        </div>
+                        <div className="form-inputs-container">
+                            <br />
+
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+                                    <input type="text" name="name" className="input" value={inputFields.name} onChange={handleChange} />
+                                    <label className="label">Name</label>
+                                </div>
+                                <label className="error">{errors.name}</label>
+                            </div>
+
+
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+                                    <input type="text" name="surname" className="input" value={inputFields.surname} onChange={handleChange} />
+                                    <label className="label">Surname</label>
+                                </div>
+                                <label className="error">{errors.surname}</label>
+                            </div>
+
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+                                    <input type="text" name="email"
+                                        className="input" value={inputFields.email} onChange={handleChange} />
+                                    <label className="label">Email</label>
+                                </div>
+                                <label className="error">{errors.email}</label>
+                            </div>
+
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+
+                                    <input type="password" name="password"
+                                        className="input" value={inputFields.password} onChange={handleChange} />
+                                    <label className="label">Password</label>
+                                </div>
+                                <label className="error">{errors.password}</label>
+                            </div>
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+
+                                    <input type="password" name="repassword"
+                                        className="input" value={inputFields.repassword} onChange={handleChange} />
+                                    <label className="label">Repeat Password</label>
+                                </div>
+                                <label className="error">{errors.repassword}</label>
+                            </div>
+                        </div>
                         <br />
-                        <div className="input-error-container">
-                            <input type="text" name="name" placeholder="Name"
-                                className="input" value={inputFields.name} onChange={handleChange} />
-                            <label className="errors">{errors.name}</label>
+                        <div className="button-container">
+                            <input type="submit" className="button-5" value="Update Information" />
                         </div>
-                        <div className="input-error-container">
-                            <input type="text" name="surname" placeholder="Surname"
-                                className="input" value={inputFields.surname} onChange={handleChange} />
-                            <label className="errors">{errors.surname}</label>
-                        </div>
-                        <div className="input-error-container">
-                            <input type="text" name="email" placeholder="Email"
-                                className="input" value={inputFields.email} onChange={handleChange} />
-                            <label className="errors">{errors.email}</label>
-                        </div>
-                        <div className="input-error-container">
-                            <input type="password" placeholder="Password" name="password"
-                                className="input" value={inputFields.password} onChange={handleChange} />
-                            <label className="errors">{errors.password}</label>
-                        </div>
-                        <div className="input-error-container">
-                            <input type="password" placeholder="Repeat Password" name="repassword"
-                                className="input" value={inputFields.repassword} onChange={handleChange} />
-                            <label className="errors">{errors.repassword}</label>
-                        </div>
-                    </div>
-                    <br />
-                    <div className="button-container">
-                        <input type="submit" className="button-5" />
-                    </div>
-                </form>
-            </div>
-        </>
-    )
+                    </form>
+                </div>
+            </>
+        )
+    }
+    else {
+        navigate("/SignIn");
+    }
 }

@@ -35,4 +35,58 @@
 .logo {
     height: 4em;
     pointer-events: none;
+    margin-top: 10px;
 }
+
+
+
+/*****************************************************************/
+/*ICON BAR*/
+/* nav {
+    background-color: rgb(242, 242, 242);
+    color: rgb(130, 130, 130);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 4rem;
+    height: 5rem;
+} */
+
+/* .icon-bar {
+    /* width: 100%;
+    background-color: rgb(242, 242, 242);
+    overflow: auto; 
+
+    background-color: rgb(242, 242, 242);
+    color: rgb(130, 130, 130);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; 
+    padding: 0 20px;
+    height: 5rem;
+}
+
+.icon-bar a {
+    width: 8%;
+    text-align: center;
+    padding-left: 100px ;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+.icon-bar a:hover {
+    background-color: grey;
+}
+
+.active {
+    background-color: #41AAA4;
+}
+
+.logo {
+    height: 4em;
+    pointer-events: none;
+    margin-top: 10px;
+    text-align: left;
+}  */

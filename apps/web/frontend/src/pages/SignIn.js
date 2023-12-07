@@ -49,7 +49,6 @@ export default function SignIn() {
     };
 
     const finishSubmit = () => {
-        console.log(inputFields);
         Signin();
     };
     useEffect(() => {

@@ -14,6 +14,12 @@ export default function NavBar() {
   };
   return (
     <nav className="nav">
+      {/* <img src={logo} className="logo" alt="logo" />
+      <div class="icon-bar">
+        <a class="active" href="/Model"><i class="fa fa-home"></i></a>
+        <a href="/Account"><i class="fa fa-user"></i></a>
+      </div > */}
+
       <img src={logo} className="logo" alt="logo" />
       <ul>
         <li><a href="/Model">Model</a></li>
@@ -23,3 +29,6 @@ export default function NavBar() {
     </nav>
   );
 };
+
+
+

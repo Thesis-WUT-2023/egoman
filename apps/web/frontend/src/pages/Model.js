@@ -9,20 +9,12 @@ import '../Styles/Model.css';
 export const validateValues = (inputValues) => {
     let errors = {};
 
-    // if(!inputValues.product)
-    //     errors.product = "Product is required";
-
-    // if(!inputValues.month)
-    //     errors.month = "Month is required";
-
-    // if(!inputValues.month1)
-    //     errors.
-
-    if(inputValues.month1 < 0 || inputValues.month2 < 0 || inputValues.month3 < 0 || inputValues.astma < 0 
-        || inputValues.pochp < 0 || inputValues.sold < 0)
-        errors.nums = "All fields should be higher than 0";
+    if(inputValues.month1 < 0 || inputValues.month2 < 0 || inputValues.month3 < 0 ||
+        inputValues.astma < 0 || inputValues.pochp < 0 || inputValues.sold < 0)
+        {
+            errors.nums = "All fields should be higher than 0";
+        }
     
-
     return errors;
 };
 
@@ -46,11 +38,7 @@ export default function Model() {
     });
 
     useEffect(() => {
-        const loggedInUser = Cookies.get("authenticated");
-        setauthenticated(loggedInUser);
-        if (loggedInUser === "false") {
-            navigate("/SignIn");
-        }
+        setauthenticated(Cookies.get("authenticated") === "true" ? true : false);
     }, []);
 
     const [submitting, setSubmitting] = useState(false);
@@ -96,7 +84,9 @@ export default function Model() {
             
         }
     }
-    return (
+    if(authenticated)
+    {
+        return (
         <>
         <NavBar />
         
@@ -108,7 +98,7 @@ export default function Model() {
                     <select className="model-select" name="Product" id="prod" placeholder="Product">
                         <option value="Product">Select a product</option>
                     </select>
-                     <input type="month" name="input4" required min="2020-01" max="2025-12"className="input" onChange={handleChange}/>
+                     <input type="month" placeholder="Month" name="input4" required min="2020-01" max="2025-12"className="model-input" onChange={handleChange}/>
                      <input type="number" placeholder="Sold Units 1 Month Before" name="input3" min={0} required className="model-input" onChange={handleChange}/>
                      <input type="number" placeholder="Sold Units 2 Months Before" name="input4" min={0} required className="model-input" onChange={handleChange}/>
                      <input type="number" placeholder="Sold Units 3 Months Before" name="input4" min={0} required className="model-input" onChange={handleChange}/>
@@ -122,7 +112,11 @@ export default function Model() {
          </div>
          </form>
         </>
-    )  
+    ) 
+ }
+    else{
+        navigate("/SignIn");
+    }
     
     }
 
