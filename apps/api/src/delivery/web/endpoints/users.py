@@ -5,16 +5,19 @@ from src.delivery.web.middleware.injector import get_injector
 from src.domains.users.commands import (
     CreateUserCommand,
     LoginUserCommand,
+    UpdateUserPWDCommand,
     UpdateUserSettingsCommand,
 )
 from src.domains.users.entities import (
     CreateUserRequest,
     LoginUserRequest,
+    UpdateUserPWDRequest,
     UpdateUserSettingsRequest,
 )
 from src.domains.users.interfaces import (
     ICreateUser,
     ILoginUser,
+    IUpdateUserPWD,
     IUpdateUserSettings,
     UserAlreadyExists,
     WrongCreadentials,
@@ -45,7 +48,7 @@ async def login_user(user: LoginUserRequest, injector: Injector = Depends(get_in
         raise HTTPException(401, detail="Invalid credentials")
 
 
-@router.put("/update")
+@router.put("/update/settings")
 async def update_user_settings(
     user_settings: UpdateUserSettingsRequest, injector: Injector = Depends(get_injector)
 ) -> str:
@@ -56,3 +59,16 @@ async def update_user_settings(
         return token
     except WrongCreadentials:
         raise HTTPException(401, detail="Invalid credentials")
+
+
+@router.put("/update/pwd")
+async def update_user_pwd(
+    new_password: UpdateUserPWDRequest, injector: Injector = Depends(get_injector)
+) -> str:
+    try:
+        command: UpdateUserPWDCommand = await injector.inject(IUpdateUserPWD)
+        args = UpdateUserPWDCommand.Args(new_password=new_password)
+        success = await command.invoke(args)
+        return success
+    except WrongCreadentials:
+        raise HTTPException(401, detail="Old password is incorrect")
