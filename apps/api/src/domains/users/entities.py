@@ -30,3 +30,9 @@ class UpdateUserSettingsRequest(BaseModel):
     uid: UUID
     new_name: str
     new_surname: str
+
+
+class UpdateUserPWDRequest(BaseModel):
+    uid: UUID
+    old_password: str
+    new_password: str

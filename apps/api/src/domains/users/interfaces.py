@@ -49,3 +49,15 @@ class IUpdateUserSettings(abc.ABC):
     @abc.abstractmethod
     async def invoke(self, args: Args) -> Result:
         pass
+
+
+class IUpdateUserPWD(abc.ABC):
+    class Args(BaseModel):
+        new_password: entities.UpdateUserPWDRequest
+
+    class Result(BaseModel):
+        success: bool
+
+    @abc.abstractmethod
+    async def invoke(self, args: Args) -> Result:
+        pass

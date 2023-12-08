@@ -17,3 +17,7 @@ class IUsersStorage(abc.ABC):
         self, new_user_settings: entities.UpdateUserSettingsRequest
     ) -> entities.UserInfo:
         pass
+
+    @abc.abstractmethod
+    async def update_pwd(self, new_password: entities.UpdateUserPWDRequest) -> bool:
+        pass

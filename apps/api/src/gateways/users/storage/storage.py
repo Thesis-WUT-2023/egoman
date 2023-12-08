@@ -70,6 +70,27 @@ class DatabaseUsersStorage(gateways.IUsersStorage):
 
             return self._map_orm_to_entity(obj)
 
+    async def update_pwd(self, new_password: entities.UpdateUserPWDRequest) -> bool:
+        async with self._storage_session.begin_session() as db_session:
+            query = select(tables.User).where(tables.User.uid == new_password.uid)
+            result = await db_session.execute(query)
+            obj = result.scalars().first()
+
+            if obj is None:
+                LOGGER.error("Could not update password for %s", new_password.uid)
+                return False
+
+            if obj.password != new_password.old_password:
+                LOGGER.error("Wrong credentials for user %s", new_password.uid)
+                raise WrongCreadentials()
+
+            obj.password = new_password.new_password
+
+            await db_session.commit()
+            await db_session.refresh(obj)
+
+            return True
+
     def _map_orm_to_entity(self, user: tables.User) -> entities.UserInfo:
         return entities.UserInfo(
             uid=user.uid,
