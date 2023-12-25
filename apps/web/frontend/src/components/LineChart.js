@@ -12,7 +12,7 @@ export default function BasicLineChart(props) {
                     },
                 ]}
                 width={props.width}
-                height={300}
+                height={props.height}
             />
         </div>
     );
