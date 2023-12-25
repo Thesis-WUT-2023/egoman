@@ -39,7 +39,7 @@ code {
 
 .form {
     margin: 10em;
-    width: 30%;
+    width: 50%;
     max-width: 400px;
     min-height: 20em;
     max-height: fit-content;
@@ -67,6 +67,7 @@ code {
     align-items: flex-end;
     font-size: small;
     font-weight: bold;
+    color: red;
 }
 
 .form-inputs-container {
@@ -74,19 +75,16 @@ code {
     height: fit-content;
     width: auto;
     max-width: inherit;
-    padding: 1em;
+    padding: 5%;
     display: flex;
     flex-direction: column;
 }
-
-
 
 .input-error-container {
     display: grid;
     flex-direction: column;
     margin: 0;
     margin-bottom: 1em;
-
 }
 
 .error {
@@ -103,7 +101,10 @@ code {
     display: grid;
     align-items: flex-start;
     margin: 0;
+    width:auto;
+
     /* margin-bottom: 10px; */
+    /* overflow: hidden; */
 }
 
 .input {
@@ -118,14 +119,19 @@ code {
     /* font-family: 'Newsreader';  */
 
     all: unset;
-    color: black;
+
+    width: auto;
     padding: 1rem;
+    
     border: 1px solid #41AAA1;
     border-radius: 10px;
-    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    width: auto;
+
     text-align: start;
+    color: black;
+
+    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 
 .label {
     position: absolute;
@@ -148,6 +154,17 @@ code {
     padding-inline: 0.3rem;
 }
 
+
+@media screen and (max-width: 500px) {
+
+    .input {
+        width: 100%;
+    }
+
+    .label {
+        font-size: medium;
+    }
+}
 
 
 .button-container {

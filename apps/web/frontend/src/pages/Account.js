@@ -2,30 +2,20 @@ import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom'
-
+import '../Styles/Account.css';
 export const validateValues = (inputValues) => {
-    var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let errors = {};
 
-    if (!inputValues.name)
-        errors.name = "Name is required";
-    if (!inputValues.surname)
-        errors.surname = "Surname is required";
+    if (!inputValues.oldPassword)
+        errors.oldPassword = "Old password is required";
 
-    if (!inputValues.email)
-        errors.email = "Email is required";
-    if (!validRegex.test(inputValues.email)) {
-        errors.email = "Invalid Email";
-    }
-
-    if (!inputValues.password)
-        errors.password = "Password is required";
-    else if (inputValues.password.length < 8) {
-        errors.password = "Password is short";
-    }
+    if (!inputValues.newPassword)
+        errors.newPassword = "New password is required";
+    else if (inputValues.newPassword.length < 8)
+        errors.newPassword = "Password is short"
     if (!inputValues.repassword)
         errors.repassword = "Verify the Password";
-    else if (inputValues.password != inputValues.repassword) {
+    else if (inputValues.newPassword != inputValues.repassword) {
         errors.repassword = "Passwords do not match";
     }
 
@@ -36,21 +26,17 @@ export default function Account() {
     const navigate = useNavigate();
     const [authenticated, setAuthenticated] = useState(null);
     const [inputFields, setInputFields] = useState({
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
+        oldPassword: "",
+        newPassword: "",
         repassword: ""
     });
     const [errors, setErrors] = useState({
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
+        oldPassword: "",
+        newPassword: "",
         repassword: ""
     });
     const [submitting, setSubmitting] = useState(false);
-    const [formError, setFormError] = useState(null);
+    const [formMessage, setFormMessage] = useState(null);
     useEffect(() => {
         setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
     }, []);
@@ -67,7 +53,7 @@ export default function Account() {
 
     const finishSubmit = () => {
         console.log(inputFields);
-        UpdateAccount();
+        ChangePassword();
     };
     useEffect(() => {
         if (Object.keys(errors).length === 0 && submitting) {
@@ -75,24 +61,25 @@ export default function Account() {
         }
     }, [errors]);
 
-    const UpdateAccount = async () => {
+    const ChangePassword = async () => {
         const requestOptions = {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: inputFields.email,
-                password: inputFields.password
+                uid: Cookies.get("token"),
+                oldPassword: inputFields.oldPassword,
+                newPassword: inputFields.newPassword
             })
 
         };
-        const response = await fetch("http://localhost:3000/users/update", requestOptions);
+        const response = await fetch("http://localhost:3000/users/update/pwd", requestOptions);
         const data = await response.json();
 
         if (!response.ok) {
-
+            setFormMessage("Password is incorrect");
         }
         else {
-
+            setFormMessage("Password changed successfully");
         }
     }
     if (authenticated) {
@@ -100,9 +87,74 @@ export default function Account() {
             <>
                 <NavBar />
                 <h1 className="h1">User Account</h1>
-                <div className="form">
+                <div className="account-container">
+                    <div className="user-info">
+                        <table className="user-info-table">
+                            <tr>
+                                <td><label className="user-info-label">Name:</label></td>
+                                <td><label className="user-info-label">Rayan</label></td>
+                            </tr>
+                            <tr>
+                                <td><label className="user-info-label">Surname:</label></td>
+                                <td><label className="user-info-label">Hamed</label></td>
+                            </tr>
+                            <tr>
+                                <td><label className="user-info-label">Email:</label></td>
+                                <td><label className="user-info-label">rayanhamed20029@gmail.com</label></td>
+                            </tr>
 
-                    <form onSubmit={handleSubmit}>
+                        </table>
+                    </div>
+
+                    <div className="pwd-info">
+
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+                                    <input type="password" name="oldPassword"
+                                        className="input" value={inputFields.oldPassword} onChange={handleChange} />
+                                    <label className="label">Old Password</label>
+                                </div>
+                                <label className="error">{errors.oldPassword}</label>
+                            </div>
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+                                    <input type="password" name="newPassword"
+                                        className="input" value={inputFields.newPassword} onChange={handleChange} />
+                                    <label className="label">New Password</label>
+                                </div>
+                                <label className="error">{errors.newPassword}</label>
+                            </div>
+                            <div className="input-error-container">
+                                <div className="input-label-container">
+                                    <input type="password" name="repassword"
+                                        className="input" value={inputFields.repassword} onChange={handleChange} />
+                                    <label className="label">Repeat Password</label>
+                                </div>
+                                <label className="error">{errors.repassword}</label>
+                            </div>
+                            <br />
+                            <div className="form-error-container">
+                                <label className="form-error">{formMessage}</label>
+                            </div>
+                            <div className="button-container">
+                                <input type="submit" className="button-5" value="Update Password" />
+                            </div>
+                        </form>
+
+                    </div >
+
+                </div >
+            </>
+        )
+    }
+    else {
+        navigate("/SignIn");
+    }
+}
+
+/*<div className="form">
+<form onSubmit={handleSubmit}>
                         <div className="form-error-container">
                             <label className="form-error">{formError}</label>
                         </div>
@@ -159,11 +211,4 @@ export default function Account() {
                             <input type="submit" className="button-5" value="Update Information" />
                         </div>
                     </form>
-                </div>
-            </>
-        )
-    }
-    else {
-        navigate("/SignIn");
-    }
-}
+                     </div>*/

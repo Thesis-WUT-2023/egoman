@@ -1,32 +1,19 @@
 import React, { createContext, useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 export const UserContext = createContext();
 
-export const UserProvider = (props) => {
-    const [token, setToken] = useState(localStorage.getItem("awesomeLeadsToken"));
+export const UserContextProvider = (props) => {
+    const [user, setUser] = useState({
+        Name: "",
+        Surname: "",
+        email: "",
+        token: "",
+    });
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const requestOptions = {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: token,
-                },
-            };
-
-            const response = await fetch("/api/users/me", requestOptions);
-
-            if (!response.ok) {
-                setToken(null);
-            }
-            localStorage.setItem("userToken", token);
-        };
-        fetchUser();
-    }, [token]);
 
     return (
-        <UserContext.Provider value={[token, setToken]}>
+        <UserContext.Provider value={[user, setUser]}>
             {props.children}
         </UserContext.Provider>
     );

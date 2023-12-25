@@ -106,9 +106,6 @@ export default function SignUp() {
 
         <form onSubmit={handleSubmit}>
           <img src={logo} id="logo-form" alt="Egoman-Logo"></img>
-          <div className="form-error-container">
-            <label className="form-error">{validationError}</label>
-          </div>
           <div className="form-inputs-container">
             <br />
 
@@ -158,6 +155,9 @@ export default function SignUp() {
             </div>
           </div>
           <br />
+          <div className="form-error-container">
+            <label className="form-error">{validationError}</label>
+          </div>
           <div className="button-container">
             <input type="submit" className="button-5" value="Sign Up" />
           </div>

@@ -91,7 +91,7 @@ export default function Model() {
         <NavBar />
         
         <h1 className="h1">Model</h1>
-        <BasicLineChart/>
+        <BasicLineChart X={[1,2,3]} Y={[40,50,60]}/>
         <form onSubmit={handleSubmit}>
                  <div className="model-input-container">
                     <br/><br/>

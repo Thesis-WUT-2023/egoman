@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
 import Cookies from "js-cookie";
+import { UserContextProvider } from "../contexts/UserContext";
 
 export const validateValues = (inputValues) => {
     var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -76,6 +77,7 @@ export default function SignIn() {
         else {
             Cookies.set("token", data);
             Cookies.set("authenticated", true);
+
             navigate("/Model");
         }
     }
