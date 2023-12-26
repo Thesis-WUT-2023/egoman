@@ -36,6 +36,8 @@ export default function Model() {
         month: "",
         nums: "",
     });
+    const [xValues, setXValues] = useState([]);
+    const [yValues, setYValues] = useState([]);
 
     useEffect(() => {
         setauthenticated(Cookies.get("authenticated") === "true" ? true : false);
@@ -69,8 +71,7 @@ export default function Model() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: inputFields.email,
-                password: inputFields.password
+                inputFields
             })
 
         };
@@ -81,7 +82,7 @@ export default function Model() {
             
         }
         else {
-            
+            //TODO: Set X and Y Values
         }
     }
     if(authenticated)
@@ -91,7 +92,7 @@ export default function Model() {
         <NavBar />
         
         <h1 className="h1">Model</h1>
-        <BasicLineChart X={[1,2,3]} Y={[40,50,60]} height={300}/>
+        <BasicLineChart X={[1,2,3]/*xValues*/} Y={[40,50,60]/*yValues*/} height={300}/>
         <form onSubmit={handleSubmit}>
                  <div className="model-input-container">
                     <br/><br/>
