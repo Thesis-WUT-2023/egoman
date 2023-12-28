@@ -4,3 +4,7 @@ class UserAlreadyExists(Exception):
 
 class WrongCreadentials(Exception):
     pass
+
+
+class NoUserFound(Exception):
+    pass

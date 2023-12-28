@@ -1,4 +1,5 @@
 import abc
+from uuid import UUID
 
 from src.domains.users import entities
 
@@ -14,10 +15,14 @@ class IUsersStorage(abc.ABC):
 
     @abc.abstractmethod
     async def update(
-        self, new_user_settings: entities.UpdateUserSettingsRequest
-    ) -> entities.UserInfo:
+        self, uid: UUID, new_user_settings: entities.UpdateUserSettingsRequest
+    ) -> bool:
         pass
 
     @abc.abstractmethod
-    async def update_pwd(self, new_password: entities.UpdateUserPWDRequest) -> bool:
+    async def update_pwd(self, uid: UUID, new_password: entities.UpdateUserPWDRequest) -> bool:
+        pass
+
+    @abc.abstractmethod
+    async def fetch_user(self, uid: UUID) -> entities.User:
         pass
