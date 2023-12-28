@@ -21,9 +21,9 @@ class UpdateUserPWDCommand(interfaces.IUpdateUserPWD):
             hash_func.update(args.new_password.new_password.encode())
             args.new_password.new_password = hash_func.hexdigest()
 
-            success = await self._storage.update_pwd(args.new_password)
+            success = await self._storage.update_pwd(args.uid, args.new_password)
 
-            LOGGER.info("Succesfully updated user {%s}", args.new_password.uid)
+            LOGGER.info("Succesfully updated user {%s}", args.uid)
             return success
         except gateways.WrongCreadentials:
             raise interfaces.WrongCreadentials()

@@ -1,10 +1,10 @@
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class UserBaseProperties(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 
@@ -14,25 +14,29 @@ class UserInfo(UserBaseProperties):
     surname: str
 
 
+class User(BaseModel):
+    email: EmailStr
+    name: str
+    surname: str
+
+
 class CreateUserRequest(BaseModel):
-    email: str
+    email: EmailStr
     password: str
     name: str
     surname: str
 
 
 class LoginUserRequest(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 
 class UpdateUserSettingsRequest(BaseModel):
-    uid: UUID
     new_name: str
     new_surname: str
 
 
 class UpdateUserPWDRequest(BaseModel):
-    uid: UUID
     old_password: str
     new_password: str

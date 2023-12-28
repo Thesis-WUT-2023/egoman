@@ -4,6 +4,7 @@ from src.delivery.config import Config
 from src.domains.core.storage import StorageSession
 from src.domains.users.commands import (
     CreateUserCommand,
+    FetchUserCommand,
     LoginUserCommand,
     UpdateUserPWDCommand,
     UpdateUserSettingsCommand,
@@ -11,6 +12,7 @@ from src.domains.users.commands import (
 from src.domains.users.gateways import IUsersStorage
 from src.domains.users.interfaces import (
     ICreateUser,
+    IFetchUser,
     ILoginUser,
     IUpdateUserPWD,
     IUpdateUserSettings,
@@ -52,3 +54,10 @@ async def make_update_user_pwd_command(injector: Injector):
     users_storage = await injector.inject(IUsersStorage)
     config = injector.inject(Config)
     return UpdateUserPWDCommand(users_storage, config)
+
+
+@provider.provides(IFetchUser, scope="app")
+async def make_fetch_user_command(injector: Injector):
+    users_storage = await injector.inject(IUsersStorage)
+    config = injector.inject(Config)
+    return FetchUserCommand(users_storage, config)
