@@ -4,6 +4,7 @@ from src.delivery.config import Config
 from src.delivery.config import config as web_config
 
 from .auth import provider as auth_provider
+from .model import provider as model_provider
 from .storage import provider as storage_provider
 from .users import provider as users_provider
 
@@ -17,6 +18,7 @@ def _create_provider():
     provider.attach(storage_provider)
     provider.attach(users_provider)
     provider.attach(auth_provider)
+    provider.attach(model_provider)
 
     return provider
 
