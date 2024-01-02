@@ -49,7 +49,7 @@ export default function SignUp() {
     password: "",
     repassword: "",
   });
-  const [validationError, setValidationError] = useState(null);
+  const [formError, setFormError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
@@ -89,7 +89,7 @@ export default function SignUp() {
     const data = await response.json();
 
     if (!response.ok) {
-      setValidationError("User already Exists");
+      setFormError("User already Exists");
     } else {
       Cookies.set("token", data.access_token);
       Cookies.set("authenticated", true);
@@ -117,7 +117,6 @@ export default function SignUp() {
               <label className="error">{errors.name}</label>
             </div>
 
-
             <div className="input-error-container">
               <div className="input-label-container">
                 <input type="text" name="surname" className="input" value={inputFields.surname} onChange={handleChange} />
@@ -137,7 +136,6 @@ export default function SignUp() {
 
             <div className="input-error-container">
               <div className="input-label-container">
-
                 <input type="password" name="password"
                   className="input" value={inputFields.password} onChange={handleChange} />
                 <label className="label">Password</label>
@@ -156,7 +154,7 @@ export default function SignUp() {
           </div>
           <br />
           <div className="form-error-container">
-            <label className="form-error">{validationError}</label>
+            <label className="form-error">{formError}</label>
           </div>
           <div className="button-container">
             <input type="submit" className="button-5" value="Sign Up" />

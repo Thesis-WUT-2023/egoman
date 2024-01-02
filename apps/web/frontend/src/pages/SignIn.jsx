@@ -4,6 +4,8 @@ import logo from "../static/logo.png";
 import Cookies from "js-cookie";
 import { UserContextProvider } from "../contexts/UserContext";
 
+
+
 export const validateValues = (inputValues) => {
     var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let errors = {};
@@ -23,8 +25,8 @@ export const validateValues = (inputValues) => {
 
 export default function SignIn() {
     const navigate = useNavigate();
-    const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated") || false));
 
+    const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("authenticated") || false));
     const [inputFields, setInputFields] = useState({
         email: "",
         password: "",
@@ -42,7 +44,6 @@ export default function SignIn() {
         const { name, value } = e.target;
         setInputFields({ ...inputFields, [name]: value });
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
         setErrors(validateValues(inputFields));
@@ -77,15 +78,15 @@ export default function SignIn() {
         else {
             Cookies.set("token", data.token);
             Cookies.set("authenticated", true);
-            const requestOptions = {
-                method: "GET",
-                headers: { "Content-Type": "application/json",  'Authorization': 'Bearer '+ Cookies.get("token").toString()},    
-            };
-            const response = await fetch("http://localhost:3000/users/current", requestOptions);
-            const data2 = await response.json();
-            Cookies.set("email", data2.email);
-            Cookies.set("name", data2.name);
-            Cookies.set("surname", data2.surname);
+            // const requestOptions = {
+            //     method: "GET",
+            //     headers: { "Content-Type": "application/json",  'Authorization': 'Bearer '+ Cookies.get("token").toString()},    
+            // };
+            // const response = await fetch("http://localhost:3000/users/current", requestOptions);
+            // const data2 = await response.json();
+            // Cookies.set("email", data2.email);
+            // Cookies.set("name", data2.name);
+            // Cookies.set("surname", data2.surname);
             navigate("/Model");
         }
     }
@@ -98,9 +99,7 @@ export default function SignIn() {
             <div className="form">
                 <form onSubmit={handleSubmit}>
                     <img src={logo} id="logo-form" />
-                    <div className="form-error-container">
-                        <label className="form-error">{formError}</label>
-                    </div>
+                    
                     <div className="form-inputs-container">
                         <br /><br />
                         <div className="input-error-container">
@@ -118,6 +117,9 @@ export default function SignIn() {
                             </div>
                             <label className="error">{errors.password}</label>
                         </div>
+                    </div>
+                    <div className="form-error-container">
+                        <label className="form-error">{formError}</label>
                     </div>
                     <div className="button-container">
                         <input type="submit" className="button-5" value={"Sign In"} />

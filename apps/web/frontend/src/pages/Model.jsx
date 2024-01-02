@@ -56,13 +56,9 @@ export default function Model() {
         setSubmitting(true);
     };
 
-    const finishSubmit = () => {
-        console.log(inputFields);
-        RequestResult();
-    };
     useEffect(() => {
         if (Object.keys(errors).length === 0 && submitting) {
-            finishSubmit();
+            RequestResult();
         }
     }, [errors]);
 
