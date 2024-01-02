@@ -18,6 +18,7 @@ class UpdateUserPWDCommand(interfaces.IUpdateUserPWD):
             hash_func.update(args.new_password.old_password.encode())
             args.new_password.old_password = hash_func.hexdigest()
 
+            hash_func = hashlib.new(str(self._config.HASH_FUNC))
             hash_func.update(args.new_password.new_password.encode())
             args.new_password.new_password = hash_func.hexdigest()
 
