@@ -7,12 +7,14 @@ from src.delivery.web.middleware.injector import get_injector
 from src.domains.auth.gateways import IAuthHandler
 from src.domains.auth.interaces import InvalidToken, SessionExpired
 from src.domains.users.commands import (
+    DeleteUserCommand,
     FetchUserCommand,
     UpdateUserPWDCommand,
     UpdateUserSettingsCommand,
 )
 from src.domains.users.entities import UpdateUserPWDRequest, UpdateUserSettingsRequest, User
 from src.domains.users.interfaces import (
+    IDeleteUser,
     IFetchUser,
     IUpdateUserPWD,
     IUpdateUserSettings,
@@ -77,5 +79,20 @@ async def get_current_user(
         args = FetchUserCommand.Args(uid=user_uid)
         user = await command.invoke(args)
         return user
+    except NoUserFound:
+        raise HTTPException(403, detail="No User Found")
+
+
+@router.delete("/current", dependencies=[Depends(JWTBearer())])
+async def delete_user(
+    injector: Injector = Depends(get_injector), token: str = Depends(JWTBearer())
+) -> bool:
+    try:
+        auth_handler: AuthHandler = await injector.inject(IAuthHandler)
+        user_uid: UUID = auth_handler.decode(token)
+        command: DeleteUserCommand = await injector.inject(IDeleteUser)
+        args = DeleteUserCommand.Args(uid=user_uid)
+        result = await command.invoke(args)
+        return result.success
     except NoUserFound:
         raise HTTPException(403, detail="No User Found")

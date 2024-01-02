@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import and_, select
+from sqlalchemy import and_, delete, select
 from sqlalchemy.exc import IntegrityError
 
 from src.domains.core.storage import StorageSession
@@ -105,6 +105,19 @@ class DatabaseUsersStorage(gateways.IUsersStorage):
                 raise NoUserFound()
 
             return self._map_orm_to_user_entity(obj)
+
+    async def delete(self, uid: UUID) -> bool:
+        async with self._storage_session.begin_session() as db_session:
+            query = delete(tables.User).where(tables.User.uid == uid)
+            result = await db_session.execute(query)
+
+            if result.rowcount == 0:
+                LOGGER.error("No user found %s", uid)
+                raise NoUserFound()
+
+            await db_session.commit()
+
+            return True
 
     def _map_orm_to_entity(self, user: tables.User) -> entities.UserInfo:
         return entities.UserInfo(
