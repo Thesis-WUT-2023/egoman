@@ -81,3 +81,15 @@ class IFetchUser(abc.ABC):
     @abc.abstractmethod
     async def invoke(self, args: Args) -> Result:
         pass
+
+
+class IDeleteUser(abc.ABC):
+    class Args(BaseModel):
+        uid: UUID
+
+    class Result(BaseModel):
+        success: bool
+
+    @abc.abstractmethod
+    async def invoke(self, args: Args) -> Result:
+        pass

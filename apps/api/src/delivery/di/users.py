@@ -4,6 +4,7 @@ from src.delivery.config import Config
 from src.domains.core.storage import StorageSession
 from src.domains.users.commands import (
     CreateUserCommand,
+    DeleteUserCommand,
     FetchUserCommand,
     LoginUserCommand,
     UpdateUserPWDCommand,
@@ -12,6 +13,7 @@ from src.domains.users.commands import (
 from src.domains.users.gateways import IUsersStorage
 from src.domains.users.interfaces import (
     ICreateUser,
+    IDeleteUser,
     IFetchUser,
     ILoginUser,
     IUpdateUserPWD,
@@ -61,3 +63,9 @@ async def make_fetch_user_command(injector: Injector):
     users_storage = await injector.inject(IUsersStorage)
     config = injector.inject(Config)
     return FetchUserCommand(users_storage, config)
+
+
+@provider.provides(IDeleteUser, scope="app")
+async def make_delete_user_command(injector: Injector):
+    users_storage = await injector.inject(IUsersStorage)
+    return DeleteUserCommand(users_storage)

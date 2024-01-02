@@ -26,3 +26,7 @@ class IUsersStorage(abc.ABC):
     @abc.abstractmethod
     async def fetch_user(self, uid: UUID) -> entities.User:
         pass
+
+    @abc.abstractmethod
+    async def delete(self, uid: UUID) -> bool:
+        pass
