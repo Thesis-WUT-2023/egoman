@@ -1,8 +1,12 @@
 import NavBar from "../components/NavBar";
 import { useState, useEffect } from "react";
+import { UserContext } from "../contexts/UserContext";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom'
 import '../Styles/Account.css';
+
+
+
 export const validateValues = (inputValues) => {
     let errors = {};
 
@@ -62,21 +66,21 @@ export default function Account() {
     }, [errors]);
 
     const ChangePassword = async () => {
+        console.log('Bearer '+ Cookies.get("token"));
         const requestOptions = {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",  'Authorization': 'Bearer '+ Cookies.get("token").toString()},
             body: JSON.stringify({
-                uid: Cookies.get("token"),
-                oldPassword: inputFields.oldPassword,
-                newPassword: inputFields.newPassword
+                old_password: inputFields.oldPassword,
+                new_password: inputFields.newPassword
             })
 
         };
         const response = await fetch("http://localhost:3000/users/update/pwd", requestOptions);
         const data = await response.json();
 
-        if (!response.ok) {
-            setFormMessage("Password is incorrect");
+        if(!response.ok){
+            setFormMessage("Password incorrect");
         }
         else {
             setFormMessage("Password changed successfully");

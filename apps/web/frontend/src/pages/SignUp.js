@@ -85,7 +85,7 @@ export default function SignUp() {
       }),
     };
 
-    const response = await fetch("http://localhost:3000/users/signup", requestOptions);
+    const response = await fetch("http://localhost:3000/auth/signup", requestOptions);
     const data = await response.json();
 
     if (!response.ok) {

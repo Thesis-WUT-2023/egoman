@@ -68,16 +68,24 @@ export default function SignIn() {
             })
 
         };
-        const response = await fetch("http://localhost:3000/users/login", requestOptions);
+        const response = await fetch("http://localhost:3000/auth/login", requestOptions);
         const data = await response.json();
 
         if (!response.ok) {
             setFormError("Invalid Email or Password");
         }
         else {
-            Cookies.set("token", data);
+            Cookies.set("token", data.token);
             Cookies.set("authenticated", true);
-
+            const requestOptions = {
+                method: "GET",
+                headers: { "Content-Type": "application/json",  'Authorization': 'Bearer '+ Cookies.get("token").toString()},    
+            };
+            const response = await fetch("http://localhost:3000/users/current", requestOptions);
+            const data2 = await response.json();
+            Cookies.set("email", data2.email);
+            Cookies.set("name", data2.name);
+            Cookies.set("surname", data2.surname);
             navigate("/Model");
         }
     }
