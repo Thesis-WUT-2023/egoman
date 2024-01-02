@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.delivery.di.injector import create_injector
-from src.delivery.web.endpoints import auth, users
+from src.delivery.web.endpoints import auth, users, model
 
 
 def _configure_cors(app):
@@ -28,6 +28,7 @@ class App(FastAPI):
     def _register_routes(self):
         self.include_router(users.router, prefix="/users", tags=["Users"])
         self.include_router(auth.router, prefix="/auth", tags=["Auth"])
+        self.include_router(model.router, prefix="/model", tags=["Model"])
 
 
 def create_app():
