@@ -1,17 +1,15 @@
 from pydio.api import Injector, Provider
 
-from src.delivery.config import Config
-from src.domains.model.gateways import IModel
-from src.gateways.model import Model
-from src.domains.model.interfaces import IPredict
 from src.domains.model.commands import PredictCommand
-
+from src.domains.model.gateways import IModel
+from src.domains.model.interfaces import IPredict
+from src.gateways.model import Model
 
 provider = Provider()
 
 
 @provider.provides(IModel, scope="app")
-async def make_model(injector: Injector):
+async def make_model():
     return Model()
 
 

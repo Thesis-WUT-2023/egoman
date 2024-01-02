@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.delivery.di.injector import create_injector
-from src.delivery.web.endpoints import auth, users, model
+from src.delivery.web.endpoints import auth, model, users
 
 
 def _configure_cors(app):

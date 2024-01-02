@@ -10,6 +10,7 @@ class ModelInput(BaseModel):
     visits_to_Astma: int
     value_of_all_period: int
 
+
 class ModelOutput(BaseModel):
     prediction_month: int
     predicted_value: int

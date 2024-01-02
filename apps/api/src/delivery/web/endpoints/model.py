@@ -2,10 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydio.api import Injector
 
 from src.delivery.web.middleware.injector import get_injector
-from src.domains.auth.gateways import IAuthHandler
 from src.domains.auth.interaces import InvalidToken, SessionExpired
-from src.domains.model import entities, interfaces, commands 
-from src.gateways.auth import AuthHandler, JWTBearer
+from src.domains.model import commands, entities, interfaces
+from src.gateways.auth import JWTBearer
 
 router = APIRouter()
 
@@ -14,7 +13,6 @@ router = APIRouter()
 async def predict(
     model_input: entities.ModelInput,
     injector: Injector = Depends(get_injector),
-    token: str = Depends(JWTBearer()),
 ) -> entities.ModelOutput:
     try:
         command: commands.PredictCommand = await injector.inject(interfaces.IPredict)
