@@ -91,7 +91,7 @@ export default function SignUp() {
     if (!response.ok) {
       setFormError("User already Exists");
     } else {
-      Cookies.set("token", data.access_token);
+      Cookies.set("token", data.token);
       Cookies.set("authenticated", true);
       navigate("/Model");
     }
