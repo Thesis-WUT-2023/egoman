@@ -11,6 +11,9 @@ export const UserContextProvider = (props) => {
         token: "",
     });
 
+    const updateUser = (newUserData) => {
+        setUser((prevUser) => ({ ...prevUser, ...newUserData }));
+    };
 
     return (
         <UserContext.Provider value={[user, setUser]}>

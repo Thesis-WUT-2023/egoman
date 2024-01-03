@@ -58,6 +58,20 @@
     color: #41AAA1;
     font-size: 20px;
     font-family: 'Newsreader';
+    margin: 3px;
+}
+
+.model-input-month {
+    width: 20.1%;
+    height: 35px;
+    display: inline-block;
+    text-decoration-color: #41AAA1;
+    border: 2px solid grey;
+    border-radius: 10px;
+    color: #41AAA1;
+    font-size: 20px;
+    font-family: 'Newsreader';
+    margin: 3px;
 }
 
 .model-select {
@@ -70,6 +84,7 @@
     font-size: 20px;
     font-family: 'Newsreader';
     background-color: white;
+    margin: 3px;
 }
 
 @media screen and (max-width: 900px) {
@@ -79,7 +94,11 @@
     }
 
     .model-select {
-        width: 70%;
+        width: 71%;
+    }
+
+    .model-input-month {
+        width: 70.3%;
     }
 }
 

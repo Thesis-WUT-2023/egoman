@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
 import Cookies from "js-cookie";
-import { UserContextProvider } from "../contexts/UserContext";
+import { UserContext } from "../contexts/UserContext";
 
 
 
@@ -37,7 +37,7 @@ export default function SignIn() {
     });
     const [formError, setFormError] = useState(' ');
     const [submitting, setSubmitting] = useState(false);
-
+    const { user } = useContext(UserContext);
 
 
     const handleChange = (e) => {
@@ -67,7 +67,6 @@ export default function SignIn() {
                 email: inputFields.email,
                 password: inputFields.password
             })
-
         };
         const response = await fetch("http://localhost:3000/auth/login", requestOptions);
         const data = await response.json();
@@ -87,6 +86,7 @@ export default function SignIn() {
             // Cookies.set("email", data2.email);
             // Cookies.set("name", data2.name);
             // Cookies.set("surname", data2.surname);
+            
             navigate("/Model");
         }
     }

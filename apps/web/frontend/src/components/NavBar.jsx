@@ -25,7 +25,7 @@ export default function NavBar() {
     Cookies.set("surname", "");
   };
 
-  
+
   return (
     <nav className="nav" id='navBar'>
       <img src={logo} className="logo" alt="logo" />
@@ -33,9 +33,9 @@ export default function NavBar() {
         <li><a href="/Model">Model</a></li>
         <li><a href='/Account'>Account</a></li>
         <li><a href='/SignIn' onClick={ClearCookies}>Sign Out</a></li>
-
       </ul>
     </nav>
+
   );
 };
 
