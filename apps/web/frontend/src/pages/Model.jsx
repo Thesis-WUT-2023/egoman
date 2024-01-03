@@ -20,7 +20,9 @@ export const validateValues = (inputValues) => {
 
 export default function Model() {
     const navigate = useNavigate();
+    
     const [authenticated, setauthenticated] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const [inputFields, setInputFields] = useState({
         product: "",
         month: "",
@@ -39,11 +41,13 @@ export default function Model() {
     const [xValues, setXValues] = useState([]);
     const [yValues, setYValues] = useState([]);
 
+
+
     useEffect(() => {
         setauthenticated(Cookies.get("authenticated") === "true" ? true : false);
     }, []);
 
-    const [submitting, setSubmitting] = useState(false);
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -65,13 +69,12 @@ export default function Model() {
     const RequestResult = async () => {
         const requestOptions = {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", 'Authorization': 'Bearer ' + Cookies.get("token").toString()},
             body: JSON.stringify({
                 inputFields
             })
-
         };
-        const response = await fetch("http://localhost:3000/users/login", requestOptions);
+        const response = await fetch("http://localhost:3000/model/", requestOptions);
         const data = await response.json();
 
         if (!response.ok) {
@@ -79,6 +82,8 @@ export default function Model() {
         }
         else {
             //TODO: Set X and Y Values
+            setXValues(data.prediction_month);
+            setYValues(data.prediction_value);
         }
     }
     if(authenticated)
