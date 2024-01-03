@@ -27,14 +27,30 @@ export default function NavBar() {
 
 
   return (
-    <nav className="nav" id='navBar'>
-      <img src={logo} className="logo" alt="logo" />
-      <ul>
-        <li><a href="/Model">Model</a></li>
-        <li><a href='/Account'>Account</a></li>
-        <li><a href='/SignIn' onClick={ClearCookies}>Sign Out</a></li>
-      </ul>
-    </nav>
+
+    <div class="navbar">
+      <img src={logo} className='logo' alt='logo' />
+      <div class="dropdown">
+        <button class="dropbtn">
+          <i class="fa fa-lg fa-user"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="/Account">Account</a>
+          <a href="/SignIn" onClick={ClearCookies}>Sign Out</a>
+
+        </div>
+      </div>
+      <a href="/Model">Model</a>
+
+    </div>
+    // <nav className="nav" id='navBar'>
+    //   <img src={logo} className="logo" alt="logo" />
+    //   <ul>
+    //     <li><a href="/Model">Model</a></li>
+    //     <li><a href='/Account'>Account</a></li>
+    //     <li><a href='/SignIn' onClick={ClearCookies}>Sign Out</a></li>
+    //   </ul>
+    // </nav>
 
   );
 };
