@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: /home/runner/work/egoman/egoman/apps/web/frontend
+        working-directory: /home/runner/work/egoman/egoman/apps/web
     strategy:
       matrix:
         node-version: [21.x]
@@ -29,7 +29,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: /home/runner/work/egoman/egoman/apps/web/frontend/package-lock.json
+        cache-dependency-path: /home/runner/work/egoman/egoman/apps/web/package-lock.json
         
     - name: Install dependencies
       run: npm install
