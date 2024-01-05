@@ -3,7 +3,7 @@ services:
   webserver:
     build: 
       network: host
-      context: apps/web/frontend
+      context: apps/web
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
