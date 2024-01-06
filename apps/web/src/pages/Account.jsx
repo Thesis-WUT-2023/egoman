@@ -11,9 +11,9 @@ import DeleteConfirmation from "../components/DeleteConfirmation";
 export const validateValues = (inputValues) => {
     let errors = {};
 
-    if(inputValues.name.length < 1)
+    if (inputValues.name.length < 1)
         errors.name = "Name can not be empty";
-    if(inputValues.surname.length < 1)
+    if (inputValues.surname.length < 1)
         errors.surname = "Surname can not be empty";
 
     return errors;
@@ -43,7 +43,6 @@ export default function Account() {
     const [formMessage, setFormMessage] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [blur, setBlur] = useState(false);
-    const [submit, setSubmit] = useState(false);
     const [readOnly, setReadOnly] = useState(true);
 
 
@@ -98,10 +97,10 @@ export default function Account() {
         const data = await response.json();
 
         if (!response.ok) {
-            setFormMessage("Invalid Email or Password");
+            setFormMessage("Error");
         }
         else {
-            setFormMessage("Info Updated")
+            setFormMessage("Name has been updated")
         }
     }
 
@@ -120,10 +119,10 @@ export default function Account() {
         DeleteAccount();
     };
 
+
+
     const handleEditClick = () => {
         setReadOnly(false);
-        // buttonLabel.current.textContent = buttonLabel.current.textContent == "Edit Account" ? "Submit" : "Edit Account";
-        setSubmit(true);
     };
 
     const handleChange = (e) => {
@@ -138,6 +137,7 @@ export default function Account() {
     useEffect(() => {
         if (Object.keys(errors).length === 0 && submitting) {
             UpdateAccount();
+            setReadOnly(true);
         }
     }, [errors]);
 
@@ -173,13 +173,15 @@ export default function Account() {
                                 </div>
                                 <label className="error">{errors.email}</label>
                             </div>
+                            <div className="form-error-container">
+                                <label className="form-error">{formMessage}</label>
+                            </div>
                             <div className="account-buttons-container">
-                                <button ref={button} type={submit ? "submit" : "button"} class="edit-user-button" onClick={handleEditClick}>
-                                    <label ref={buttonLabel} class="text">{submit ? "Edit Account" : "Submit"}</label>
-                                </button>
-                                <button class="delete-user-button" onClick={handleDeleteClick}>
-                                    <label class="text" value="Fuck">Delete Account</label>
-                                </button>
+                                <div className="toggle-buttons-container">
+                                    <input type="button" className="edit-user-button" onClick={handleEditClick} value={"Edit Account"}/>                                  
+                                    <input type="submit" className={readOnly ? "submit-user-button" : "submit-user-button z-index1"} value={"Submit"} />
+                                </div>
+                                <input type="button" className="delete-user-button" onClick={handleDeleteClick} value={"Delete Account"}/>
                             </div>
                         </form>
                     </div>

@@ -27,29 +27,59 @@
     flex-direction: row;
 }
 
+.toggle-buttons-container {
+    display: grid;
+    align-items: center;
+}
+
 .edit-user-button {
+    grid-column: 1;
+    grid-row: 1;
     width: 190px;
     height: 50px;
-    cursor: pointer;
-    display: flex;
+    margin: 10px;
+
     align-items: center;
+    text-align: center;
+    font-weight: bold;
+
     background: #41aaa1;
     border: none;
     border-radius: 30px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-    background: #41aaa1;
-    margin: 10px;
-}
-
-
-.edit-user-button .text {
-    transform: translateX(35px);
     color: white;
-    font-weight: bold;
+
+    cursor: pointer;
+    z-index: 0;
 }
 
-.edit-user-button:hover {
+.submit-user-button {
+    grid-column: 1;
+    grid-row: 1;
+    width: 190px;
+    height: 50px;
+    margin: 10px;
+
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+
+    background: #41aaa1;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    color: white;
+
+    cursor: pointer;
+}
+
+.edit-user-button:hover,
+.submit-user-button:hover {
     background: #5cdfd4;
+}
+
+.z-index1 {
+    z-index: 1;
 }
 
 
@@ -67,17 +97,9 @@
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
     background: #e62222;
     margin: 10px;
-}
-
-.delete-user-button,
-.delete-user-button span {
-    transition: 200ms;
-}
-
-.delete-user-button .text {
-    transform: translateX(35px);
     color: white;
     font-weight: bold;
+    text-align: center;
 }
 
 .delete-user-button:hover {
@@ -87,10 +109,6 @@
 
 .delete-user-button:focus {
     outline: none;
-}
-
-.delete-user-button:active .icon svg {
-    transform: scale(0.8);
 }
 
 .delete-confirmation {

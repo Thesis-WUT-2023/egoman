@@ -50,7 +50,7 @@ export default function SignUp() {
         password: "",
         repassword: "",
     });
-    const [formError, setFormError] = useState(null);
+    const [formMessage, setFormMessage] = useState(null);
     const [submitting, setSubmitting] = useState(false);
 
 
@@ -71,7 +71,7 @@ export default function SignUp() {
         const data = await response.json();
 
         if (!response.ok) {
-            setFormError("User already Exists");
+            setFormMessage("User already Exists");
         } else {
             Cookies.set("token", data.token);
             Cookies.set("authenticated", true);
@@ -155,7 +155,7 @@ export default function SignUp() {
                     </div>
                     <br />
                     <div className="form-error-container">
-                        <label className="form-error">{formError}</label>
+                        <label className="form-error">{formMessage}</label>
                     </div>
                     <div className="button-container">
                         <input type="submit" className="button-5" value="Sign Up" />

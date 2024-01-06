@@ -35,7 +35,7 @@ export default function SignIn() {
         email: "",
         password: "",
     });
-    const [formError, setFormError] = useState(' ');
+    const [formMessage, setFormMessage] = useState(' ');
     const [submitting, setSubmitting] = useState(false);
     //const { user } = useContext(UserContext);
 
@@ -69,7 +69,7 @@ export default function SignIn() {
         const data = await response.json();
 
         if (!response.ok) {
-            setFormError("Invalid Email or Password");
+            setFormMessage("Invalid Email or Password");
         }
         else {
             Cookies.set("token", data.token);
@@ -105,7 +105,7 @@ export default function SignIn() {
                         </div>
                     </div>
                     <div className="form-error-container">
-                        <label className="form-error">{formError}</label>
+                        <label className="form-error">{formMessage}</label>
                     </div>
                     <div className="button-container">
                         <input type="submit" className="button-5" value={"Sign In"} />
