@@ -152,7 +152,7 @@ export default function Account() {
                         <form onSubmit={handleSubmit}>
                             <div className="input-error-container">
                                 <div className="input-label-container">
-                                    <input id="Account-Inputs" type="text" name="name" className="input" value={inputFields.name} onChange={handleChange} readOnly={readOnly} />
+                                    <input type="text" name="name" className={readOnly ? "input grey" : "input"} value={inputFields.name} onChange={handleChange} readOnly={readOnly} />
                                     <label className="label">Name</label>
                                 </div>
                                 <label className="error">{errors.name}</label>
@@ -160,7 +160,7 @@ export default function Account() {
 
                             <div className="input-error-container">
                                 <div className="input-label-container">
-                                    <input id="Account-Inputs" type="text" name="surname" className="input" value={inputFields.surname} onChange={handleChange} readOnly={readOnly} />
+                                    <input type="text" name="surname" className={readOnly ? "input grey" : "input "} value={inputFields.surname} onChange={handleChange} readOnly={readOnly} />
                                     <label className="label">Surname</label>
                                 </div>
                                 <label className="error">{errors.surname}</label>
@@ -168,7 +168,7 @@ export default function Account() {
 
                             <div className="input-error-container">
                                 <div className="input-label-container">
-                                    <input id="Account-Inputs" type="text" name="email" className="input" value={inputFields.email} onChange={handleChange} readOnly />
+                                    <input  type="text" name="email" className="input grey" value={inputFields.email} onChange={handleChange} readOnly />
                                     <label className="label">Email</label>
                                 </div>
                                 <label className="error">{errors.email}</label>
