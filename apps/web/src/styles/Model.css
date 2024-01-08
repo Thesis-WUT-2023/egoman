@@ -106,7 +106,7 @@
     margin: auto;
     width: auto;
     max-width: inherit;
-    padding: 1em;
+    margin: 1em;
     display: flex;
     align-items: center;
     flex-direction: column;

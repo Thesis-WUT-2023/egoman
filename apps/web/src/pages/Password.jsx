@@ -134,7 +134,8 @@ export default function Password() {
                     </form>
 
                 </div >
-            </>)
+            </>
+        )
     }
     else {
         navigate("/SignIn");

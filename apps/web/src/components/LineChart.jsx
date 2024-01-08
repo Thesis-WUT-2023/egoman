@@ -9,10 +9,12 @@ export default function BasicLineChart(props) {
                 series={[
                     {
                         data: props.Y,
+                        label: "Sales"
                     },
                 ]}
                 width={props.width}
                 height={props.height}
+                
             />
         </div>
     );
