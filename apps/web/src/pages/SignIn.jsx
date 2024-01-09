@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
 import Cookies from "js-cookie";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext, UserContextProvider } from "../contexts/UserContext";
 
 
 
@@ -37,7 +37,32 @@ export default function SignIn() {
     });
     const [formMessage, setFormMessage] = useState(' ');
     const [submitting, setSubmitting] = useState(false);
-    //const { user } = useContext(UserContext);
+    const { token, setToken } = useContext(UserContext);
+
+
+
+    const Signin = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: inputFields.email,
+                password: inputFields.password
+            })
+        };
+        const response = await fetch("http://localhost:3000/auth/login", requestOptions);
+        const data = await response.json();
+
+        if (response.ok) {
+            // setToken(data.token);
+            Cookies.set("token", data.token);
+            Cookies.set("authenticated", true);
+            navigate("/");
+        }
+        else {
+            setFormMessage("Invalid Email or Password");
+        }
+    }
 
 
     const handleChange = (e) => {
@@ -56,27 +81,6 @@ export default function SignIn() {
         }
     }, [errors]);
 
-    const Signin = async () => {
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: inputFields.email,
-                password: inputFields.password
-            })
-        };
-        const response = await fetch("http://localhost:3000/auth/login", requestOptions);
-        const data = await response.json();
-
-        if (!response.ok) {
-            setFormMessage("Invalid Email or Password");
-        }
-        else {
-            Cookies.set("token", data.token);
-            Cookies.set("authenticated", true);            
-            navigate("/Model");
-        }
-    }
     return (
         <>
             <br />

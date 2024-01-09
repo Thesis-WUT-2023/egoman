@@ -27,6 +27,13 @@ export const validateValues = (inputValues) => {
     return errors;
 };
 
+const SignOut = () => {
+    Cookies.set("authenticated", false);
+    Cookies.set("token", "");
+    Cookies.set("email", false);
+    Cookies.set("name", "");
+    Cookies.set("surname", "");
+}
 
 export default function Password() {
     const navigate = useNavigate();
@@ -68,11 +75,23 @@ export default function Password() {
         const response = await fetch("http://localhost:3000/users/update/pwd", requestOptions);
         const data = await response.json();
 
-        if (!response.ok) {
-            setFormMessage("Password is incorrect");
+        if (response.ok) {
+            setFormMessage("Password changed successfully");
         }
         else {
-            setFormMessage("Password changed successfully");
+            if (data.detail == "Invalid Token") {
+                //set page message for sign in ("Please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Session Expired") {
+                //set page message for sign in ("Session Expired, please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Old password is incorrect") {
+                setFormMessage("Old password is incorrect")
+            }
         }
     }
 

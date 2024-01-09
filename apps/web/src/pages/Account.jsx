@@ -7,7 +7,6 @@ import '../styles/Account.css';
 import DeleteConfirmation from "../components/DeleteConfirmation";
 
 
-
 export const validateValues = (inputValues) => {
     let errors = {};
 
@@ -18,6 +17,15 @@ export const validateValues = (inputValues) => {
 
     return errors;
 };
+
+
+const SignOut = () => {
+    Cookies.set("authenticated", false);
+    Cookies.set("token", "");
+    Cookies.set("email", false);
+    Cookies.set("name", "");
+    Cookies.set("surname", "");
+}
 
 
 export default function Account() {
@@ -50,6 +58,7 @@ export default function Account() {
     useEffect(() => {
         setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
     }, []);
+
     useEffect(() => {
         GetCurrentUser();
     }, []);
@@ -63,8 +72,23 @@ export default function Account() {
         const response = await fetch("http://localhost:3000/users/current", requestOptions);
         const data = await response.json();
 
-        setInputFields(data);
+        if (response.ok) {
+            setInputFields(data);
+        }
+        else {
+            if (data.detail == "Invalid Token") {
+                //set page message for sign in ("Please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Session Expired") {
+                //set page message for sign in ("Session Expired, please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+        }
     }
+
     const DeleteAccount = async () => {
         const requestOptions = {
             method: "DELETE",
@@ -74,13 +98,20 @@ export default function Account() {
         const data = await response.json();
 
         if (response.ok) {
-            Cookies.set("authenticated", false);
-            Cookies.set("token", "");
-            Cookies.set("email", false);
-            Cookies.set("name", "");
-            Cookies.set("surname", "");
-
+            SignOut();
             navigate("/SignIn");
+        }
+        else {
+            if (data.detail == "Invalid Token") {
+                //set page message for sign in ("Please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Session Expired") {
+                //set page message for sign in ("Session Expired, please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
         }
     }
 
@@ -96,11 +127,20 @@ export default function Account() {
         const response = await fetch("http://localhost:3000/users/update/settings", requestOptions);
         const data = await response.json();
 
-        if (!response.ok) {
-            setFormMessage("Error");
+        if (response.ok) {
+            setFormMessage("Name has been updated")
         }
         else {
-            setFormMessage("Name has been updated")
+            if (data.detail == "Invalid Token") {
+                //set page message for sign in ("Please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Session Expired") {
+                //set page message for sign in ("Session Expired, please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
         }
     }
 
@@ -168,7 +208,7 @@ export default function Account() {
 
                             <div className="input-error-container">
                                 <div className="input-label-container">
-                                    <input  type="text" name="email" className="input grey" value={inputFields.email} onChange={handleChange} readOnly />
+                                    <input type="text" name="email" className="input grey" value={inputFields.email} onChange={handleChange} readOnly />
                                     <label className="label">Email</label>
                                 </div>
                                 <label className="error">{errors.email}</label>
@@ -178,10 +218,10 @@ export default function Account() {
                             </div>
                             <div className="account-buttons-container">
                                 <div className="toggle-buttons-container">
-                                    <input type="button" className="edit-user-button" onClick={handleEditClick} value={"Edit Account"}/>                                  
+                                    <input type="button" className="edit-user-button" onClick={handleEditClick} value={"Edit Account"} />
                                     <input type="submit" className={readOnly ? "submit-user-button" : "submit-user-button z-index1"} value={"Submit"} />
                                 </div>
-                                <input type="button" className="delete-user-button" onClick={handleDeleteClick} value={"Delete Account"}/>
+                                <input type="button" className="delete-user-button" onClick={handleDeleteClick} value={"Delete Account"} />
                             </div>
                         </form>
                     </div>

@@ -1,7 +1,8 @@
 import NavBar from "../components/NavBar";
-import React, { useEffect, useState, Component, useRef } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { UserContext } from "../contexts/UserContext";
 import BasicLineChart from "../components/LineChart";
 import '../styles/Model.css';
 
@@ -17,6 +18,14 @@ export const validateValues = (inputValues) => {
     return errors;
 };
 
+const SignOut = () => {
+    Cookies.set("authenticated", false);
+    Cookies.set("token", "");
+    Cookies.set("email", false);
+    Cookies.set("name", "");
+    Cookies.set("surname", "");
+}
+
 export default function Model() {
     const navigate = useNavigate();
     const ref1 = useRef();
@@ -26,8 +35,8 @@ export default function Model() {
     const ref5 = useRef();
     const ref6 = useRef();
     const ref7 = useRef();
-    // const ref8 = useRef();
-    const [authenticated, setauthenticated] = useState(null);
+    
+    const [authenticated, setAuthenticated] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [inputFields, setInputFields] = useState({
         product: "",
@@ -45,11 +54,14 @@ export default function Model() {
         nums: "",
     });
     const [xValues, setXValues] = useState([1, 2, 3, 4]);
-    const [yValues, setYValues] = useState([40, 80, 60, 35]);
+    const [yValues, setYValues] = useState([0,0,0,0]);
+    const { token, setToken } = useContext(UserContext);
 
 
     useEffect(() => {
-        setauthenticated(Cookies.get("authenticated") === "true" ? true : false);
+        setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
+        // setAuthenticated(token !== false? true : false);
+        // console.log(token);
     }, []);
 
 
@@ -127,11 +139,21 @@ export default function Model() {
         const response = await fetch("http://localhost:3000/model/", requestOptions);
         const data = await response.json();
 
-        if (!response.ok) {
+        if (response.ok) {
+            setYValues([inputFields.month3 , inputFields.month2, inputFields.month1, data.predicted_value]);
             
         }
         else {
-            setYValues([inputFields.month3 , inputFields.month2, inputFields.month1, data.predicted_value]);
+            if (data.detail == "Invalid Token") {
+                //set page message for sign in ("Please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Session Expired") {
+                //set page message for sign in ("Session Expired, please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
         }
     }
 

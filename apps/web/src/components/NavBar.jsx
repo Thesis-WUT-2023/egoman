@@ -28,13 +28,13 @@ export default function NavBar() {
 
   return (
 
-    <div class="navbar">
+    <div className="navbar">
       <img src={logo} className='logo' alt='logo' />
-      <div class="dropdown">
-        <button class="dropbtn">
-          <i class="fa fa-lg fa-user"></i>
+      <div className="dropdown">
+        <button className="dropbtn">
+          <i className="fa fa-lg fa-user"></i>
         </button>
-        <div class="dropdown-content">
+        <div className="dropdown-content">
           <a href="/Account">Profile</a>
           <a href="/Password">Change password</a>
           <a href="/SignIn" onClick={ClearCookies}>Sign Out</a>

@@ -70,12 +70,15 @@ export default function SignUp() {
         const response = await fetch("http://localhost:3000/auth/signup", requestOptions);
         const data = await response.json();
 
-        if (!response.ok) {
-            setFormMessage("User already Exists");
-        } else {
+        if (response.ok) {
             Cookies.set("token", data.token);
             Cookies.set("authenticated", true);
-            navigate("/Model");
+            navigate("/");
+        }
+        else {
+            if (data.detail == "User already exists") {
+                setFormMessage("User already Exists");
+            }
         }
     };
 
@@ -93,7 +96,7 @@ export default function SignUp() {
 
     useEffect(() => {
         if (Object.keys(errors).length === 0 && submitting) {
-            SignUp();
+            Signup();
         }
     }, [errors]);
 
