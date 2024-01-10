@@ -7,14 +7,15 @@ export const UserContextProvider = (props) => {
     // const [name, setName] = useState(null);
     // const [surname, setSurname] = useState(null);
     // const [email, setEmail] = useState(null);
-    const [token, setToken] = useState(false);
+    const [token, setToken] = useState("");
 
 
     return (
-        <UserContext.Provider
-            value={ /*name: [name, setName], surname: [surname, setSurname], email: [email, setEmail], */[token, setToken]}
-        >
+        <UserContext.Provider value={[token, setToken]}>
             {props.children}
         </UserContext.Provider>
     );
 };
+
+
+/*name: [name, setName], surname: [surname, setSurname], email: [email, setEmail], */

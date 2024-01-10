@@ -37,8 +37,6 @@ export default function SignIn() {
     });
     const [formMessage, setFormMessage] = useState(' ');
     const [submitting, setSubmitting] = useState(false);
-    const { token, setToken } = useContext(UserContext);
-
 
 
     const Signin = async () => {
@@ -54,7 +52,6 @@ export default function SignIn() {
         const data = await response.json();
 
         if (response.ok) {
-            // setToken(data.token);
             Cookies.set("token", data.token);
             Cookies.set("authenticated", true);
             navigate("/");

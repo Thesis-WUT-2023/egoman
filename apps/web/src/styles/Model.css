@@ -9,7 +9,7 @@
     box-sizing: border-box;
     cursor: pointer;
     display: inline-flex;
-    font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif; */
     font-size: 16px;
     font-weight: 600;
     justify-content: center;
@@ -57,7 +57,7 @@
     border-radius: 10px;
     color: #41AAA1;
     font-size: 20px;
-    font-family: 'Newsreader';
+    /* font-family: 'Newsreader'; */
     margin: 3px;
 }
 
@@ -70,7 +70,7 @@
     border-radius: 10px;
     color: #41AAA1;
     font-size: 20px;
-    font-family: 'Newsreader';
+    /* font-family: 'Newsreader'; */
     margin: 3px;
 }
 
@@ -82,7 +82,7 @@
     border-radius: 10px;
     color: #41AAA1;
     font-size: 20px;
-    font-family: 'Newsreader';
+    /* font-family: 'Newsreader'; */
     background-color: white;
     margin: 3px;
 }

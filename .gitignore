@@ -8,3 +8,5 @@ celerybeat-schedule
 output/
 data/
 .env
+.cache
+
