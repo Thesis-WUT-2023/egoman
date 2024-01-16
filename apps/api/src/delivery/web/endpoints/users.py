@@ -81,6 +81,10 @@ async def get_current_user(
         return user
     except NoUserFound:
         raise HTTPException(403, detail="No User Found")
+    except SessionExpired:
+        raise HTTPException(403, detail="Session Expired")
+    except InvalidToken:
+        raise HTTPException(403, detail="Invalid token")
 
 
 @router.delete("/current", dependencies=[Depends(JWTBearer())])
@@ -96,3 +100,7 @@ async def delete_user(
         return result.success
     except NoUserFound:
         raise HTTPException(403, detail="No User Found")
+    except SessionExpired:
+        raise HTTPException(403, detail="Session Expired")
+    except InvalidToken:
+        raise HTTPException(403, detail="Invalid token")
