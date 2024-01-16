@@ -14,7 +14,7 @@ class FetchUserCommand(interfaces.IFetchUser):
         try:
             user = await self._storage.fetch_user(args.uid)
 
-            LOGGER.info("Succesfully updated user {%s}", args.uid)
+            LOGGER.info("Succesfully fetched user {%s}", args.uid)
             return user
         except gateways.NoUserFound:
             raise interfaces.NoUserFound()

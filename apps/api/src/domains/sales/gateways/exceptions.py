@@ -1,0 +1,2 @@
+class NoSalesFound(Exception):
+    pass
