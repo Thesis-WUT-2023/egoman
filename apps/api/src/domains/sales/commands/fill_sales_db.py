@@ -19,8 +19,8 @@ class FillSalesDatabase(IFillSalesDatabase):
         sales: List[Sales] = []
         random.seed(time.time())
         for _ in range(0, 500):
-            day = random.randrange(1, 28)
-            month = random.randrange(1, 12)
+            day = random.randint(1, 28)
+            month = random.randint(1, 12)
             date = datetime.date(2023, month, day)
             value = random.randrange(2, 20)
             sales.append(Sales(date=date, value=value))

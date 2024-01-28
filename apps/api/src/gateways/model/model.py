@@ -15,14 +15,17 @@ class Model(gateways.IModel):
         self._sales_storage = sales_storage
 
     async def predict(self, prediction: entities.ModelInput) -> entities.ModelOutput:
-        start_date = prediction.prediction_month - datetime.timedelta(weeks=16)
+        prediction.prediction_month = datetime.date(
+            prediction.prediction_month.year, prediction.prediction_month.month, 1
+        )
+        start_date = prediction.prediction_month - datetime.timedelta(weeks=12)
         end_date = prediction.prediction_month - datetime.timedelta(weeks=4)
         sales = await self._sales_storage.fetch(
             FetchSalesRequest(start_date=start_date, end_date=end_date)
         )
 
         random.seed(time.time())
-        value = random.randint(10, 50)
+        value = random.randint(100, 500)
 
         output_months = [sale.date for sale in sales] + [prediction.prediction_month]
         output_values = [sale.value for sale in sales] + [value]
