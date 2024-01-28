@@ -17,7 +17,7 @@ async def predict(
     try:
         command: commands.PredictCommand = await injector.inject(interfaces.IPredict)
         args = commands.PredictCommand.Args(model_input=model_input)
-        model_output = command.invoke(args)
+        model_output = await command.invoke(args)
         return model_output
     except SessionExpired:
         raise HTTPException(403, detail="Session Expired")

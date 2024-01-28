@@ -8,5 +8,6 @@ class PredictCommand(interfaces.IPredict):
     def __init__(self, model: gateways.IModel):
         self._model = model
 
-    def invoke(self, args):
-        return self._model.predict(args.model_input)
+    async def invoke(self, args):
+        prediction = await self._model.predict(args.model_input)
+        return prediction

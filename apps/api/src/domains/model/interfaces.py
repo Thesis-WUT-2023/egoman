@@ -13,5 +13,5 @@ class IPredict(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def invoke(self, args: Args) -> Result:
+    async def invoke(self, args: Args) -> Result:
         pass
