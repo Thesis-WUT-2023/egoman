@@ -7,14 +7,21 @@ import BasicLineChart from "../components/LineChart";
 import '../styles/Model.css';
 
 
-export const validateValues = (inputValues) => {
+export const validateModelValues = (inputValues) => {
     let errors = {};
-
-    if (inputValues.month1 < 0 || inputValues.month2 < 0 || inputValues.month3 < 0 ||
-        inputValues.astma < 0 || inputValues.pochp < 0 || inputValues.sold < 0) {
-        errors.nums = "All fields should be greater than 0";
+    if (inputValues.astma < 0 || inputValues.pochp < 0) {
+        errors.error = "All fields should be greater than 0";
     }
 
+    return errors;
+};
+
+const validateSalesValues = (inputValues) => {
+    let errors = {};
+
+    if (new Date(inputValues.month1) >= new Date(inputValues.month2)) {
+        errors.error = "First date should be before the Second date";
+    }
     return errors;
 };
 
@@ -33,115 +40,106 @@ export default function Model() {
     const ref3 = useRef();
     const ref4 = useRef();
     const ref5 = useRef();
-    const ref6 = useRef();
-    const ref7 = useRef();
-    
+
+
     const [authenticated, setAuthenticated] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
-    const [inputFields, setInputFields] = useState({
-        product: "",
+
+    const [submittingModel, setSubmittingModel] = useState(false);
+    const [submittingSales, setSubmittingSales] = useState(false);
+
+    const [modelInputFields, setModelInputFields] = useState({
         month: 0,
-        month1: 0,
-        month2: 0,
-        month3: 0,
         astma: 0,
         pochp: 0,
-        sold: 0,
     });
-    const [errors, setErrors] = useState({
-        product: "",
-        month: "",
-        nums: "",
+    const [salesInputFields, setSalesInputFields] = useState({
+        month1: 0,
+        month2: 0,
     });
-    const [xValues, setXValues] = useState([1, 2, 3, 4]);
-    const [yValues, setYValues] = useState([0,0,0,0]);
-    const { token, setToken } = useContext(UserContext);
+    const [modelErrors, setModelErrors] = useState({
+        error: ""
+    });
+    const [salesErrors, setSalesErrors] = useState({
+        error: ""
+    });
+
+
+    const [modelXValues, setModelXValues] = useState(['2023-05', '2023-06', '2023-07', '2023-08']);
+    const [modelYValues, setModelYValues] = useState([0, 0, 0, 0]);
+
+    const [salesXValues, setSalesXValues] = useState(['2023-05', '2023-06', '2023-07', '2023-08']);
+    const [salesYValues, setSalesYValues] = useState([0, 0, 0, 0]);
+
 
 
     useEffect(() => {
         setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
-        // setAuthenticated(token !== false? true : false);
-        // console.log(token);
     }, []);
-
-
 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setInputFields({ ...inputFields, [name]: value });
+        setModelInputFields({ ...modelInputFields, [name]: value });
+        setSalesInputFields({ ...salesInputFields, [name]: value });
     };
 
-    const handleSubmit = (event) => {
+
+
+    const handleSubmitModel = async (event) => {
         event.preventDefault();
-        setErrors(validateValues(inputFields));
-        setupValues();
-        setSubmitting(true);
-    };
-
-    const setupValues = () => {
-        let value1 = ref1.current.value.split("-");
-        let month4 = parseInt(value1[1]);
-
-        let month3 = month4 - 1;
-        if (month3 <= 0) {
-            month3 = 12 + month3;
-        }
-
-        let month2 = month4 - 2;
-        if (month2 <= 0) {
-            month2 = 12 + month2;
-        }
-
-        let month1 = month4 - 3;
-        if (month1 <= 0) {
-            month1 = 12 + month1;
-        }
-        
-        let value2 = ref2.current.value;
-        let value3 = ref3.current.value;
-        let value4 = ref4.current.value;
-        let value5 = ref5.current.value;
-        let value6 = ref6.current.value;
-        let value7 = ref7.current.value;
-
-        setXValues([month1.toString(), month2.toString(), month3.toString(), month4.toString()]);
-
-        inputFields.month = month4;
-        inputFields.month1 = parseInt(value2);
-        inputFields.month2 = parseInt(value3);
-        inputFields.month3 = parseInt(value4);
-        inputFields.pochp = parseInt(value5);
-        inputFields.astma = parseInt(value6);
-        inputFields.sold = parseInt(value7);
-    }
-
-    useEffect(() => {
-        if (Object.keys(errors).length === 0 && submitting) {
+        setModelErrors(validateModelValues(modelInputFields));
+        setupModelValues();
+        setSubmittingModel(true);
+        if (Object.keys(modelErrors).length === 0) {
             RequestResult();
         }
-    }, [errors]);
+    };
+    const handleSubmitSales = async (event) => {
+        event.preventDefault();
+        setSalesErrors(validateSalesValues(salesInputFields));
+        setupSalesValues();
+        if (Object.keys(salesErrors).length === 0) {
+            GetSales();
+        }
+    };
+
+
+    const setupModelValues = () => {
+        modelInputFields.month = ref1.current.value;
+        modelInputFields.pochp = parseInt(ref2.current.value);
+        modelInputFields.astma = parseInt(ref3.current.value);
+    }
+    const setupSalesValues = () => {
+        salesInputFields.month1 = ref4.current.value;
+        salesInputFields.month2 = ref5.current.value;
+    }
+
 
     const RequestResult = async () => {
+        console.log(modelInputFields.month);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json", 'Authorization': 'Bearer ' + Cookies.get("token").toString() },
             body: JSON.stringify({
-                "prediction_month": inputFields.month,
-                "value_of_month_A": inputFields.month1,
-                "value_of_month_B": inputFields.month2,
-                "value_of_month_C": inputFields.month3,
-                "visits_to_POChP": inputFields.pochp,
-                "visits_to_Astma": inputFields.astma,
-                "value_of_all_period": inputFields.sold
+                "prediction_month": modelInputFields.month + "-01",
+                "visits_to_POChP": modelInputFields.pochp,
+                "visits_to_Astma": modelInputFields.astma
             })
         };
         const response = await fetch("http://localhost:3000/model/", requestOptions);
         const data = await response.json();
 
         if (response.ok) {
-            setYValues([inputFields.month3 , inputFields.month2, inputFields.month1, data.predicted_value]);
-            
+            console.log(data);
+            let arr1 = [];
+            let arr2 = [];
+            for (const sale of data.sales) {
+                arr1.push((sale.date).substring(0, 7));
+                arr2.push(sale.value);
+            }
+            setModelXValues(arr1);
+            setModelYValues(arr2);
+
         }
         else {
             if (data.detail == "Invalid Token") {
@@ -156,39 +154,102 @@ export default function Model() {
             }
         }
     }
+    const GetSales = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json", 'Authorization': 'Bearer ' + Cookies.get("token").toString() },
+            body: JSON.stringify({
+                "start_date": salesInputFields.month1 + "-01",
+                "end_date": salesInputFields.month2 + "-01"
+            })
+        };
 
+        const response = await fetch("http://localhost:3000/sales/", requestOptions);
+        const data = await response.json();
+
+        if (response.ok) {
+            let arr1 = [];
+            let arr2 = [];
+            for (let i = 0; i < data.length; i++) {
+                arr1.push((data[i].date).substring(0, 7));
+                arr2.push(data[i].value);
+
+            }
+            console.log(arr1);
+
+            setSalesXValues(arr1);
+            setSalesYValues(arr2);
+
+        }
+        else {
+            if (data.detail == "Invalid Token") {
+                console.log("wtf");
+
+                //set page message for sign in ("Please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+            if (data.detail == "Session Expired") {
+                //set page message for sign in ("Session Expired, please sign in again")
+                SignOut();
+                navigate("/SignIn");
+            }
+        }
+    }
 
     if (authenticated) {
         return (
             <>
                 <NavBar />
+                <div className="model-body">
+                    <div className="grid1">
+                        <h1 className="h1">Predict</h1>
+                        <BasicLineChart X={modelXValues} Y={modelYValues} height={400} />
+                        <form onSubmit={handleSubmitModel}>
+                            <div className="model-input-container">
+                                <br /><br />
+                                {/* <select className="model-select" name="Product" id="prod" placeholder="Product">
+                                    <option value="Product">Select a product</option>
+                                </select> */}
+                                <input type="month" placeholder="Month" name="input1" required className="model-input-month" onChange={handleChange} min="2023-01" max="2024-03" ref={ref1} />
+                                <input type="number" placeholder="Visits POChP" name="input2" required className="model-input" onChange={handleChange} min={0} max={40} ref={ref2} />
+                                <input type="number" placeholder="Visits ASTMA" name="input3" required className="model-input" onChange={handleChange} min={0} max={40} ref={ref3} />
+                            </div>
+                            <br /><br />
+                            <div className="button-container">
+                                <input type="submit" className="model-submit-button" />
+                            </div>
+                        </form>
+                        <label className="error">{modelErrors.error}</label>
+                    </div>
 
-                <h1 className="h1">Model</h1>
-                <BasicLineChart X={xValues} Y={yValues} height={300}/>
-                <form onSubmit={handleSubmit}>
-                    <div className="model-input-container">
-                        <br /><br />
-                        <select className="model-select" name="Product" id="prod" placeholder="Product">
-                            <option value="Product">Select a product</option>
-                        </select>
-                        <input type="month" placeholder="Month" name="input4" required className="model-input-month" onChange={handleChange} min="2020-01" max="2025-12" ref={ref1}/>
-                        <input type="number" placeholder="Sold Units 1 Month Before" name="input3" required className="model-input" onChange={handleChange} min={0} ref={ref2}/>
-                        <input type="number" placeholder="Sold Units 2 Months Before" name="input4" required className="model-input" onChange={handleChange} min={0} ref={ref3}/>
-                        <input type="number" placeholder="Sold Units 3 Months Before" name="input4" required className="model-input" onChange={handleChange} min={0} ref={ref4}/>
-                        <input type="number" placeholder="Visits POChP" name="input4" required className="model-input" onChange={handleChange} min={0} ref={ref5}/>
-                        <input type="number" placeholder="Visits ASTMA" name="input4" required className="model-input" onChange={handleChange} min={0} ref={ref6}/>
-                        <input type="number" placeholder="Sold Products Whole Period" name="input4" required className="model-input" onChange={handleChange} min={0} ref={ref7}/>
+                    <div className="grid2">
+                        <h1 className="h1">Get Sales</h1>
+                        <BasicLineChart X={salesXValues} Y={salesYValues} height={400} />
+
+                        <form onSubmit={handleSubmitSales}>
+                            <div className="model-input-container2">
+                                <br /><br />
+                                {/* <select className="model-select" name="Product" id="prod" placeholder="Product">
+                                    <option value="Product">Select a product</option>
+                                </select> */}
+                                <input type="month" placeholder="Month" name="input4" required className="model-input-month" min="2023-01" max="2024-01" ref={ref4} />
+                                <input type="month" placeholder="Month" name="input5" required className="model-input-month" min="2023-01" max="2024-01" ref={ref5} />
+                            </div>
+                            <label className="error-model">{salesErrors.error}</label>
+                            <br /><br />
+                            <div className="button-container">
+                                <input type="submit" className="model-submit-button" />
+                            </div>
+                        </form>
+
                     </div>
-                    <br /><br />
-                    <div className="button-container">
-                        <input type="submit" className="model-submit-button" />
-                    </div>
-                </form>
+                </div>
             </>
         )
     }
     else {
-        // navigate("/SignIn");
+        navigate("/SignIn");
     }
 
 }

@@ -43,7 +43,7 @@ export default function NavBar() {
 
         </div>
       </div>
-      <a href="/Model">Model</a>
+      <a href="/Home">Home</a>
 
     </div>
     // <nav className="nav" id='navBar'>
