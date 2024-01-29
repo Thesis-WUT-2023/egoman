@@ -1,7 +1,9 @@
 import datetime
-from typing import Dict
+from typing import List
 
 from pydantic import BaseModel
+
+from src.domains.sales.entities import Sales
 
 
 class ModelInput(BaseModel):
@@ -11,4 +13,4 @@ class ModelInput(BaseModel):
 
 
 class ModelOutput(BaseModel):
-    output: Dict[datetime.date, float]
+    sales: List[Sales]

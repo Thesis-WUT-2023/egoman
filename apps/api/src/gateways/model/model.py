@@ -3,7 +3,7 @@ import random
 import time
 
 from src.domains.model import entities, gateways
-from src.domains.sales.entities import FetchSalesRequest
+from src.domains.sales.entities import FetchSalesRequest, Sales
 from src.domains.sales.gateways import ISalesStorage
 from src.monitoring import logging
 
@@ -27,9 +27,6 @@ class Model(gateways.IModel):
         random.seed(time.time())
         value = random.randint(100, 500)
 
-        output_months = [sale.date for sale in sales] + [prediction.prediction_month]
-        output_values = [sale.value for sale in sales] + [value]
+        sales.append(Sales(date=prediction.prediction_month, value=value))
 
-        return entities.ModelOutput(
-            output={output_months[i]: output_values[i] for i in range(0, len(output_months))}
-        )
+        return entities.ModelOutput(sales=sales)
