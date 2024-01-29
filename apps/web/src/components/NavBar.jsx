@@ -20,9 +20,6 @@ export default function NavBar() {
   const ClearCookies = event => {
     Cookies.set("authenticated", false);
     Cookies.set("token", "");
-    Cookies.set("email", false);
-    Cookies.set("name", "");
-    Cookies.set("surname", "");
   };
 
 
@@ -43,7 +40,7 @@ export default function NavBar() {
 
         </div>
       </div>
-      <a href="/Home">Home</a>
+      <a href="/">Home</a>
 
     </div>
     // <nav className="nav" id='navBar'>

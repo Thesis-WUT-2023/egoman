@@ -8,7 +8,6 @@ import SignUp from './pages/SignUp'
 import Account from './pages/Account'
 import NoPage from './pages/NoPage';
 import Password from './pages/Password';
-import { UserContext } from './contexts/UserContext';
 
 
 export default function App() {
@@ -16,7 +15,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Model />} />
-      <Route path="/Home" element={<Model />} />
+      <Route path="/Model" element={<Model />} />
       <Route path="/Account" element={<Account />} />
       <Route path="SignUp" element={<SignUp />} />
       <Route path="/SignIn" element={<SignIn />} />

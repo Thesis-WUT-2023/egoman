@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import logo from "../static/logo.png";
 import Cookies from "js-cookie";
-import { UserContext, UserContextProvider } from "../contexts/UserContext";
 
 
 

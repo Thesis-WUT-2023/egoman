@@ -1,10 +1,10 @@
 import NavBar from "../components/NavBar";
 import { useState, useEffect, useRef } from "react";
-import { UserContext } from "../contexts/UserContext";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom'
 import '../styles/Account.css';
 import DeleteConfirmation from "../components/DeleteConfirmation";
+import Unauthorized from "../components/Unauthorized";
 
 
 
@@ -30,16 +30,11 @@ export const validateValues = (inputValues) => {
 const SignOut = () => {
     Cookies.set("authenticated", false);
     Cookies.set("token", "");
-    Cookies.set("email", false);
-    Cookies.set("name", "");
-    Cookies.set("surname", "");
 }
 
 export default function Password() {
     const navigate = useNavigate();
 
-
-    const [authenticated, setAuthenticated] = useState(null);
     const [inputFields, setInputFields] = useState({
         oldPassword: "",
         newPassword: "",
@@ -58,10 +53,6 @@ export default function Password() {
     const [submitting, setSubmitting] = useState(false);
     const [formMessage, setFormMessage] = useState(null);
 
-
-    useEffect(() => {
-        setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
-    }, []);
 
     const ChangePassword = async () => {
         const requestOptions = {
@@ -111,7 +102,7 @@ export default function Password() {
     }, [errors]);
 
 
-    if (authenticated) {
+    if (Cookies.get("authenticated") == "true") {
         return (
             <>
                 <NavBar />
@@ -157,7 +148,7 @@ export default function Password() {
         )
     }
     else {
-        navigate("/SignIn");
+        return(<Unauthorized/>);
     }
 
 

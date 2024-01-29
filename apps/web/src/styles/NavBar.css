@@ -174,3 +174,22 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+
+
+
+.unauthorized {
+    text-align: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+.link {
+    font-size: 30px;
+    color: #41aaa1;
+    text-decoration: none;
+}
+.link:hover {
+    text-decoration: underline;
+}
+

@@ -1,10 +1,10 @@
 import NavBar from "../components/NavBar";
 import { useState, useEffect, useRef } from "react";
-import { UserContext } from "../contexts/UserContext";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom'
 import '../styles/Account.css';
 import DeleteConfirmation from "../components/DeleteConfirmation";
+import Unauthorized from "../components/Unauthorized";
 
 
 export const validateValues = (inputValues) => {
@@ -22,9 +22,6 @@ export const validateValues = (inputValues) => {
 const SignOut = () => {
     Cookies.set("authenticated", false);
     Cookies.set("token", "");
-    Cookies.set("email", false);
-    Cookies.set("name", "");
-    Cookies.set("surname", "");
 }
 
 
@@ -33,7 +30,6 @@ export default function Account() {
     const buttonLabel = useRef();
     const button = useRef();
 
-    const [authenticated, setAuthenticated] = useState(null);
     const [inputFields, setInputFields] = useState({
         name: "",
         surname: ""
@@ -53,11 +49,6 @@ export default function Account() {
     const [blur, setBlur] = useState(false);
     const [readOnly, setReadOnly] = useState(true);
 
-
-
-    useEffect(() => {
-        setAuthenticated(Cookies.get("authenticated") === "true" ? true : false);
-    }, []);
 
     useEffect(() => {
         GetCurrentUser();
@@ -182,7 +173,7 @@ export default function Account() {
     }, [errors]);
 
 
-    if (authenticated) {
+    if (Cookies.get("authenticated") == "true") {
         return (
             <>
                 <div className={blur ? "blur" : null}>
@@ -235,6 +226,6 @@ export default function Account() {
         )
     }
     else {
-        navigate("/SignIn");
+        return(<Unauthorized/>);
     }
 }
