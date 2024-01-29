@@ -20,6 +20,14 @@ class Model(gateways.IModel):
         )
         start_date = prediction.prediction_month - datetime.timedelta(weeks=12)
         end_date = prediction.prediction_month - datetime.timedelta(weeks=4)
+
+        start_date = datetime.date(start_date.year, start_date.month, 1)
+        end_date = (
+            datetime.date(end_date.year, end_date.month, 1)
+            + datetime.timedelta(weeks=4)
+            - datetime.timedelta(days=1)
+        )
+
         sales = await self._sales_storage.fetch(
             FetchSalesRequest(start_date=start_date, end_date=end_date)
         )
