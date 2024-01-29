@@ -22,6 +22,8 @@ class FetchSalesQuery(interfaces.IFetchSales):
             )
             sales = await self._storage.fetch(args.date_bounds)
 
+            sales.sort(key=lambda sale: sale.date)
+
             LOGGER.info("Succesfully fetched sales")
             return sales
         except gateways.NoSalesFound:

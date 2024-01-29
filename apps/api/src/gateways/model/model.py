@@ -32,6 +32,8 @@ class Model(gateways.IModel):
             FetchSalesRequest(start_date=start_date, end_date=end_date)
         )
 
+        sales.sort(key=lambda sale: sale.date)
+
         random.seed(time.time())
         value = random.randint(100, 500)
 
